@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 /**
+ * main class
  *
  * @author Pippy
  */
@@ -16,12 +17,15 @@ public class BetrayalAtTheTextOnTheScreen
 {
     final static int NUMBER_OF_ROOMS = 7;
     static Room[] rooms = new Room[NUMBER_OF_ROOMS];
+    static Player player;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) 
     {
         buildMap();
+        player = new Player("Player 1");
+        System.out.println(player);
         // TODO code application logic here
     }
     
