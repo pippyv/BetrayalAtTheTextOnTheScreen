@@ -7,7 +7,8 @@ package betrayalatthetextonthescreen;
  *    Player initialized with name, default name is "I am confused" <br>
  * <br>
  * Instance variables: player name <br>
- * Methods getPlayerName & setPlayerName <br>
+ * Methods getPlayerName and setPlayerName <br>
+ * add other class variables and methods as discussed <br>
  * @author pippy
  */
 public class Player {
@@ -15,22 +16,8 @@ public class Player {
     String playerName;
     
     Player (String name) {
-        this.playerName = name;
+        System.out.println("Player Class constructor called");
     }
-    
-    Player () {
-        this (DEFAULT_PLAYER_NAME);
-    }
-    
-    public String getPlayerName() {
-        return this.playerName;
-    }
-    
-    public String toString() {
-        return("Player: player name = " + getPlayerName());
-    }
-    
-
     
     // other methods to follow
     

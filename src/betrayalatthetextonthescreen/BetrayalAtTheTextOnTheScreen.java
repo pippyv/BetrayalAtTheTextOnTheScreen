@@ -25,7 +25,6 @@ public class BetrayalAtTheTextOnTheScreen
     {
         buildMap();
         player = new Player("Player 1");
-        System.out.println(player);
         // TODO code application logic here
     }
     
