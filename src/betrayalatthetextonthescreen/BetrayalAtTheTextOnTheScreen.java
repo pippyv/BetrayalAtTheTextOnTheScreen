@@ -44,7 +44,6 @@ public class BetrayalAtTheTextOnTheScreen
             if(rand.nextBoolean()) //for two door rooms
             {
                 System.out.println("Room " + index + " has two doors.");
-                rooms[index].setDoorThree(-1);
                 //if random equals true progression will be gaurenteed through door one, else door two
                 //set doors
                 if(rand.nextBoolean())
@@ -59,6 +58,7 @@ public class BetrayalAtTheTextOnTheScreen
                     rooms[index].setDoorTwo(roomList.get(index));
                     rooms[index].setDoorOne(rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
+                System.out.println(rooms[index].ifDoorThreeExists());
             }
             else //for three door rooms
             {
@@ -87,9 +87,10 @@ public class BetrayalAtTheTextOnTheScreen
                         rooms[index].setDoorTwo(rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                 }
+                System.out.println(rooms[index].ifDoorThreeExists());
             }
         }
-        rooms[NUMBER_OF_ROOMS - 1].setRoomName("Front Hall");
+        //rooms[NUMBER_OF_ROOMS - 1].setRoomName("Front Hall");
         //print generated map to console
         for (int index = 0; index < NUMBER_OF_ROOMS; index++) 
         {
