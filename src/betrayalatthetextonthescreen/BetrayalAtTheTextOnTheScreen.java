@@ -6,6 +6,7 @@
 package betrayalatthetextonthescreen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 /**
@@ -18,6 +19,9 @@ public class BetrayalAtTheTextOnTheScreen
     final static int NUMBER_OF_ROOMS = 7;
     static Room[] rooms = new Room[NUMBER_OF_ROOMS];
     static Player player;
+    static List<String> roomNames = new ArrayList<String>(Arrays.asList("Kitchen", "Bathroom", "Main Hall", "Bedroom", "Living Room", "Study", "Observatory"));
+    static List<String> roomDescs = new ArrayList<String>(Arrays.asList("KitchenDesc", "BathroomDesc", "Main HallDesc", "BedroomDesc", "Living RoomDesc", "StudyDesc", "ObservatoryDesc"));
+    static boolean debug = true;
     /**
      * @param args the command line arguments
      */
@@ -28,76 +32,92 @@ public class BetrayalAtTheTextOnTheScreen
         // TODO code application logic here
     }
     
+    static void debug(String message)
+    {
+        if (debug) 
+            System.out.println(message);
+    }
+    
+    /**
+     *
+     * Map Builder Method<br>
+     * Creates as many rooms as specified by NUMBER_OF_ROOMS constant.<br>
+     * Randomly selects a name for each room and sets a corresponding room description.<br>
+     * Randomizes number of doors for each room (2-3) and appends a sentence onto the room description stating how many doors are in the room.<br>
+     * Selects one door per room at random to lead to a predetermined route that ensures every room is accessible.<br>
+     * Randomizes the destination for any remaining doors (can lead to themselves).<br>
+     * Prints debug to console.<br>
+     * Assumes NUMBER_OF_ROOMS is defined within file
+     * <P>
+     * TODO<br> 
+     * Move out of main and into another file.<br>
+     *
+     */
     static void buildMap()
     {
-        //initialize randomizer
         Random rand = new Random();
         int randomNumber;
-        //create list to hold the fixed loop of rooms that keeps all rooms accessible
         List<Integer> roomList = new ArrayList<Integer>();
         roomList.add(NUMBER_OF_ROOMS - 2);
         roomList.add(NUMBER_OF_ROOMS - 1);
         for (int index = 0; index < NUMBER_OF_ROOMS - 2; index++) 
             roomList.add(index);
-        //create rooms
         for (int index = 0; index < NUMBER_OF_ROOMS; index++) 
         {
             rooms[index] = new Room(("" + index), index);
-            //if random equals true the room will have two doors, else three
-            if(rand.nextBoolean()) //for two door rooms
+            randomNumber = rand.nextInt(roomNames.size());
+            rooms[index].setRoomName(roomNames.get(randomNumber));
+            rooms[index].setRoomDescription(roomDescs.get(randomNumber));
+            roomNames.remove(randomNumber);
+            roomDescs.remove(randomNumber);
+            if(rand.nextBoolean())
             {
-                System.out.println("Room " + index + " has two doors.");
-                //if random equals true progression will be gaurenteed through door one, else door two
-                //set doors
+                debug("Room " + index + " has two doors.");
+                rooms[index].appendRoomDescription("There are two doors here.");
                 if(rand.nextBoolean())
                 {
-                    System.out.println("Room " + index + "'s door one progresses.");
-                    rooms[index].setDoorOne(roomList.get(index));
-                    rooms[index].setDoorTwo(rand.nextInt(NUMBER_OF_ROOMS - 1));
+                    debug("Room " + index + "'s door one progresses.");
+                    rooms[index].setDoor(1, roomList.get(index));
+                    rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
                 else
                 {
-                    System.out.println("Room " + index + "'s door two progresses.");
-                    rooms[index].setDoorTwo(roomList.get(index));
-                    rooms[index].setDoorOne(rand.nextInt(NUMBER_OF_ROOMS - 1));
+                    debug("Room " + index + "'s door two progresses.");
+                    rooms[index].setDoor(2, roomList.get(index));
+                    rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
-                System.out.println(rooms[index].ifDoorThreeExists());
             }
-            else //for three door rooms
+            else
             {
-                System.out.println("Room " + index + " has three doors.");
+                debug("Room " + index + " has three doors.");
+                rooms[index].appendRoomDescription("There are three doors here.");
                 randomNumber = rand.nextInt(3);
-                //if random equals 0 progression will be gaurenteed through door one, if 1 then door two, if 2 then door three
-                //set doors
                 switch(randomNumber)
                 {
                     case 0:
-                        System.out.println("Room " + index + "'s door one progresses.");
-                        rooms[index].setDoorOne(roomList.get(index));
-                        rooms[index].setDoorTwo(rand.nextInt(NUMBER_OF_ROOMS - 1));
-                        rooms[index].setDoorThree(rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        debug("Room " + index + "'s door one progresses.");
+                        rooms[index].setDoor(1, roomList.get(index));
+                        rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        rooms[index].setDoor(3, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 1:
-                        System.out.println("Room " + index + "'s door two progresses.");
-                        rooms[index].setDoorTwo(roomList.get(index));
-                        rooms[index].setDoorOne(rand.nextInt(NUMBER_OF_ROOMS - 1));
-                        rooms[index].setDoorThree(rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        debug("Room " + index + "'s door two progresses.");
+                        rooms[index].setDoor(2, roomList.get(index));
+                        rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        rooms[index].setDoor(3, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 2:
-                        System.out.println("Room " + index + "'s door three progresses.");
-                        rooms[index].setDoorThree(roomList.get(index));
-                        rooms[index].setDoorOne(rand.nextInt(NUMBER_OF_ROOMS - 1));
-                        rooms[index].setDoorTwo(rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        debug("Room " + index + "'s door three progresses.");
+                        rooms[index].setDoor(3, roomList.get(index));
+                        rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                 }
-                System.out.println(rooms[index].ifDoorThreeExists());
             }
         }
-        //rooms[NUMBER_OF_ROOMS - 1].setRoomName("Front Hall");
-        //print generated map to console
         for (int index = 0; index < NUMBER_OF_ROOMS; index++) 
         {
-            System.out.println(rooms[index].roomInfoString());
+            debug(rooms[index].roomInfoString());
         }
     }
     
