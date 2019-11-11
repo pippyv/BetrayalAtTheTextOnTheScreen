@@ -9,7 +9,7 @@ package betrayalatthetextonthescreen;
  * Assumes external code will initialize destinations for doors.<br>
  * Assumes external code handles pathing.<br>
  * Instance variables: room name, room description, doors array, and room reference number<br>
- * Methods: get/set room number, get/set room name, get/set door, get/set/append room description, if door exists, to string<br>
+ * Methods: get/set room number, get/set room name, get/set door, get/set/append room description, if door exists, get number of doors, to string<br>
  * <P>
  * TODO<br>  
  *
@@ -103,6 +103,24 @@ public class Room
             return true;
         else 
             return false;
+    }
+    
+    /**
+     * Get Number Of Doors Method<br>
+     * Counts the number of doors in the room that have viable destinations.<br>
+     * @return int - Number of doors in the room<br>
+     */
+    public int getNumberOfDoors()
+    {
+        int returnInt = 0;
+        for(int door : doors)
+        {
+            if (door != NON_APPLICABLE)
+            {
+                returnInt++;
+            }
+        }
+        return returnInt;
     }
     
     /**
