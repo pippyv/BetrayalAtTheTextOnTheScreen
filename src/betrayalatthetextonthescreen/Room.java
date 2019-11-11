@@ -116,27 +116,15 @@ public class Room
         returnString = "Room number: " + this.roomNumber;
         returnString += "\tRoom name: " + this.roomName;
         returnString += "\tRoom description: " + this.roomDescription;
-//        for (int i = 0; i < MAX_NUMBER_OF_DOORS; i++) 
-//        {
-//            if (this.ifDoorExists(i))   
-//            {
-//                returnString = "\tDoor " + i + 1 ": " + this.doors[i];
-//            }
-//            else
-//                returnString += "\tDoor " + i + 1 ": NA";
-//        }
-        if (this.ifDoorExists(0))            
-            returnString += "\tDoor one: " + this.doors[0];
-        else
-            returnString += "\tDoor one: NA";
-        if (this.ifDoorExists(1))            
-            returnString += "\tDoor two: " + this.doors[1];
-        else
-            returnString += "\tDoor two: NA";
-        if (this.ifDoorExists(2))            
-            returnString += "\tDoor three: " + this.doors[2];
-        else
-            returnString += "\tDoor three: NA";
+        for (int i = 0; i < MAX_NUMBER_OF_DOORS; i++) 
+        {
+            if (this.ifDoorExists(i))   
+            {
+                returnString += "\tDoor " + (i + 1) + ": " + this.doors[i];
+            }
+            else
+                returnString += "\tDoor " + (i + 1) + ": NA";
+        }
         returnString += "\n";
        return returnString;
     }

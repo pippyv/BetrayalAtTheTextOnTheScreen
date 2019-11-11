@@ -11,10 +11,7 @@ import java.util.List;
  * Instance variables: player name, current player location, and player inventory<br>
  * Methods: get/set player name, get/set player location, get player inventory, clear player inventory, if player has item, add/remove inventory item.<br>
  * <P>
- * TODO:
- * setPlayerName method<br>
- * removeInventoryItem method<br>
- * toString method<br>
+ * TODO:<br>
  * Default player name constructor<br>
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
@@ -27,12 +24,12 @@ public class Player {
     private int playerLocation;
     private List<String> playerInventory;
     
-/**
- * Player constructor<br>
- * Initializes player name and inventory<br>
- * Initializes player location to 0<br>
- * @param name - player name<br>
- */
+    /**
+     * Player constructor<br>
+     * Initializes player name and inventory<br>
+     * Initializes player location to 0<br>
+     * @param name - player name<br>
+     */
     Player (String name) 
     {
         playerName = name;
@@ -43,6 +40,11 @@ public class Player {
     public String getPlayerName()
     {
         return this.playerName;
+    }
+    
+    public void setPlayerName(String name)
+    {
+        this.playerName = name;
     }
     
     public int getPlayerLocation()
@@ -60,21 +62,21 @@ public class Player {
         return this.playerInventory;
     }
     
-/**
- * Clear Player Inventory Method<br>
- * Removes all strings from the playerInventory list.<br>
- */
+    /**
+     * Clear Player Inventory Method<br>
+     * Removes all strings from the playerInventory list.<br>
+     */
     public void clearPlayerInventory()
     {
         this.playerInventory.clear();
     }
     
-/**
- * If Player Has Item Method<br>
- * Checks if the player's inventory contains specified items.  Returns a boolean.<br>
- * @param item - item to be searched for<br>
- * @return boolean value - true if player has specified item, else false<br>
- */
+    /**
+     * If Player Has Item Method<br>
+     * Checks if the player's inventory contains specified items.  Returns a boolean.<br>
+     * @param item - item to be searched for<br>
+     * @return boolean value - true if player has specified item, else false<br>
+     */
     public boolean ifPlayerHasItem (String item)
     {
         boolean playerHasItem = false;
@@ -88,12 +90,12 @@ public class Player {
         return playerHasItem;
     }
 
-/**
- * Add Inventory Item<br>
- * Checks if the player's inventory has enough space to hold another item and then either adds the specified item or informs the player that their inventory is full.<br>
- * @param item - item to be added to the inventory<br>
- * @return String - String to be printed informing the player if the operation was successful<br>
- */
+    /**
+     * Add Inventory Item<br>
+     * Checks if the player's inventory has enough space to hold another item and then either adds the specified item or informs the player that their inventory is full.<br>
+     * @param item - item to be added to the inventory<br>
+     * @return String - String to be printed informing the player if the operation was successful<br>
+     */
     public String addInventoryItem(String item)
     {
         if(this.playerInventory.size() < MAX_INVENTORY_SIZE)
@@ -107,12 +109,28 @@ public class Player {
         }
     }
     
+    /**
+     * Remove Inventory Item Method<br>
+     * Checks if the player's inventory contains the specified item and removes the item if present.<br>
+     * @param item - item to be removed from the inventory<br>
+     * @return String - String to be printed informing the player if the operation was successful<br>
+     */
+    public String removeInventoryItem(String item)
+    {
+        if(this.playerInventory.contains(item))
+        {
+            this.playerInventory.remove(item);
+            return "You are no longer carrying " + item + ".";
+        }
+        else
+            return "You are not carrying " + item + ".";
+    }
     
-/**
- * To String Method<br>
- * Creates and returns a string containing the name, location, and inventory contents for the player.<br>
- * @return String - all information regarding the player and its variables <br>
- */
+    /**
+     * To String Method<br>
+     * Creates and returns a string containing the name, location, and inventory contents for the player.<br>
+     * @return String - all information regarding the player and its variables <br>
+     */
     public String toString()
     {
         String returnString = "";

@@ -102,7 +102,7 @@ public class BetrayalAtTheTextOnTheScreen
             }
             else
             {
-                debug("Room " + index + " has three doors.");
+                debug("Room " + index + " has three doors here.");
                 rooms[index].appendRoomDescription("There are three doors here.");
                 randomNumber = rand.nextInt(3);
                 switch(randomNumber)
