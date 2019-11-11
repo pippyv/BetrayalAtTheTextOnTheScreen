@@ -8,13 +8,12 @@ package betrayalatthetextonthescreen;
  * Reference number has no range restrictions.<br>
  * Assumes external code will initialize destinations for doors.<br>
  * Assumes external code handles pathing.<br>
+ * Instance variables: room name, room description, doors array, and room reference number<br>
+ * Methods: get/set room number, get/set room name, get/set door, get/set/append room description, if door exists, to string<br>
  * <P>
  * TODO<br>  
- * Move door variables to an integer array to allow for a more easily variable number of doors.<br>
- * Add ifDoorExists() method to accept a door number and return a boolean value based on if that door has a destination.<br>
- * Change name of roomInfoString() method to toString().<br>
  *
- * @author Pippy V.
+ * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  *
  */
 
@@ -111,7 +110,7 @@ public class Room
      * Creates and returns a string containing the name, reference number, door destinations, and description for the room.<br>
      * @return String - all information regarding the Room and its variables.<br>
      */
-    public String roomInfoString()
+    public String toString()
     {
         String returnString;
         returnString = "Room number: " + this.roomNumber;

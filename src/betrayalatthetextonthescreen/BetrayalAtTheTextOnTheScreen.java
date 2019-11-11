@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * main class
  *
- * @author Pippy
+ * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class BetrayalAtTheTextOnTheScreen 
 {
@@ -117,7 +117,7 @@ public class BetrayalAtTheTextOnTheScreen
         }
         for (int index = 0; index < NUMBER_OF_ROOMS; index++) 
         {
-            debug(rooms[index].roomInfoString());
+            debug(rooms[index].toString());
         }
     }
     
