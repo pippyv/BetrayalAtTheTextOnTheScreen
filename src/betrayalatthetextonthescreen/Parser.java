@@ -12,13 +12,25 @@ import java.util.Scanner;
  */
 public class Parser 
 {
-    public static void main(String[] args) 
+    private final String action [] = {"pick up", "put down", "drop", "go", "move",
+                "open", "look", "view", "view inventory", "inventory", "quit"};
+    Scanner scan;
+    
+    Parser()
     {
-        Scanner scan = new Scanner(System.in);
+        scan = new Scanner(System.in);
+    }
+    
+    
+    /**
+     * parseInput prints prompt on standard output (ie console)
+     * reads next line
+     * parses the command
+     * 
+     * @return command entered by user, including "quit" = quit game
+     */
+    public String parseInput() {
         String temp;
-        
-        String action [] = {"pick up", "put down", "drop", "go", "move",
-                "open", "look", "view", "view inventory", "inventory"};
         
         System.out.println ("Please enter menu command, followed by object/direction"
                 + ", seperated by a comma");
@@ -39,7 +51,9 @@ public class Parser
             case "look":
             case "view":
                 checkSurrounding();
+                break;
             case "pick up":
+                // check size of cmd[] array, if not two or >, invalid
                 pickUp(cmd[1]);
                 break;
             case "put down":
@@ -50,10 +64,13 @@ public class Parser
             case "move":
                 moveDirection(cmd[1]);
                 break;
+            case "quit":
+                break;
             default:
                 System.out.println ("Invalid command");
         
         }    
+        return cmd[0];
 
     }
     

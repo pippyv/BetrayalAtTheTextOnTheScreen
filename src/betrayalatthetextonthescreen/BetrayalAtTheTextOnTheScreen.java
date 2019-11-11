@@ -29,6 +29,19 @@ public class BetrayalAtTheTextOnTheScreen
     {
         buildMap();
         player = new Player("Player 1");
+        player.addInventoryItem("No Tea");
+        Parser parser = new Parser();
+        String userInput = parser.parseInput();
+        while (!userInput.equals("quit")) {
+            switch (userInput)
+            {
+                case "inventory":
+                    System.out.println(player.getPlayerInventory());
+                    break;
+                default:
+            }
+            userInput = parser.parseInput();
+        }
         // TODO code application logic here
     }
     
