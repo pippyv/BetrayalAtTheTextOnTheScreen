@@ -81,18 +81,18 @@ public class Player {
     /**
      * If Player Has Item Method<br>
      * Checks if the player's inventory contains specified items.  Returns a boolean.<br>
-     * @param item - item to be searched for<br>
-     * @return boolean value - true if player has specified item, else false<br>
+     * @param item item to be searched for<br>
+     * @return boolean value true if player has specified item, else false<br>
      */
-    public boolean ifPlayerHasItem (String item)
+    public int ifPlayerHasItem (String item)
     {
-        boolean playerHasItem = false;
-        for (String playerInventoryItem : this.playerInventory) 
+        int playerHasItem = -1;
+        for (int index = 0; index < this.playerInventory.size(); index ++) 
         {
-            System.out.println(playerInventoryItem.toLowerCase());
-            if (playerInventoryItem.toLowerCase().equals(item)) 
+            //System.out.println(this.playerInventory.get(index).toLowerCase()); <- Debug
+            if (playerInventory.get(index).toLowerCase().equals(item)) 
             {
-                playerHasItem = true;
+                playerHasItem = index;
             }
         }
         return playerHasItem;
@@ -101,20 +101,20 @@ public class Player {
     /**
      * Add Inventory Item<br>
      * Checks if the player's inventory has enough space to hold another item and then either adds the specified item or informs the player that their inventory is full.<br>
-     * @param item - item to be added to the inventory<br>
-     * @return String - String to be printed informing the player if the operation was successful<br>
+     * @param item item to be added to the inventory<br>
+     * @return boolean value true if player can hold another item, else false<br>
      */
-    public String addInventoryItem(String item)
+    public boolean addInventoryItem(String item)
     {
+        boolean canAddItem = false;
+        //System.out.println("There are " + playerInventory.size() + " items in player's inventory."); <- Debug
+        
         if(this.playerInventory.size() < MAX_INVENTORY_SIZE)
         {
             this.playerInventory.add(item);
-            return item + " has been added to your inventory.";
+            canAddItem = true;
         }
-        else
-        {
-            return "Your inventory is full.  You'll have to drop something first.";
-        }
+        return canAddItem;
     }
     
     /**
@@ -126,10 +126,11 @@ public class Player {
     public Boolean removeInventoryItem(String item)
     {
         boolean hasItem = false;
-        System.out.println(item);
-        if(ifPlayerHasItem(item))
+        //System.out.println(item); <- Debug
+        if(ifPlayerHasItem(item) != -1)
         {
-            this.playerInventory.remove(item);
+            this.playerInventory.remove(ifPlayerHasItem(item));
+            //System.out.println(item + " has been removed."); <- Debug
             hasItem = true;
         }
         return hasItem;

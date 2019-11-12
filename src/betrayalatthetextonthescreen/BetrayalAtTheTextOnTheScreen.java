@@ -25,7 +25,7 @@ public class BetrayalAtTheTextOnTheScreen
     static Player player;
     static List<String> roomNames = new ArrayList<String>(Arrays.asList("Kitchen", "Bathroom", "Main Hall", "Bedroom", "Living Room", "Study", "Observatory"));
     static List<String> roomDescs = new ArrayList<String>(Arrays.asList("Kitchen Description", "Bathroom Description", "Main Hall Description", "Bedroom Description", "Living Room Description", "Study Description", "Observatory Description"));
-    static boolean debug = true;
+    static boolean debug = false;
     /**
      * @param args the command line arguments
      */
@@ -48,6 +48,7 @@ public class BetrayalAtTheTextOnTheScreen
                     //System.out.println(userInputArray[1]);
                     if(player.removeInventoryItem(userInputArray[1]))
                     {
+                        rooms[player.getPlayerLocation()].addInventoryItem(userInputArray[1]);
                         rooms[player.getPlayerLocation()].appendRoomDescription("There is a " + userInputArray[1] + " on the floor here.");
                         System.out.println("You are no longer carrying " + userInputArray[1] + ".");
                     }
@@ -59,6 +60,24 @@ public class BetrayalAtTheTextOnTheScreen
                     System.out.println("You are in the " + rooms[player.getPlayerLocation()].getRoomName());
                     System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
                     break;
+                case "pick up":
+                    if(rooms[player.getPlayerLocation()].removeInventoryItem(userInputArray[1]))
+                    {
+                        if (player.addInventoryItem(userInputArray[1])) 
+                        {
+                            System.out.println(userInputArray[1] + " has been added to your inventory.");
+                        }
+                        else
+                        {
+                            rooms[player.getPlayerLocation()].addInventoryItem(userInputArray[1]);
+                            System.out.println("You can't carry anything more.  You leave the " + userInputArray[1] + " where it is.");
+                        }    
+                    }
+                    else
+                    {
+                        System.out.println("You don't see a " + userInputArray[1] + " here.");
+                    }
+                break;
                 default:
             }        
             System.out.println();
@@ -101,13 +120,14 @@ public class BetrayalAtTheTextOnTheScreen
             rooms[index] = new Room(("" + index), index);
             randomNumber = rand.nextInt(roomNames.size());
             rooms[index].setRoomName(roomNames.get(randomNumber));
+            rooms[index].setBaseRoomDescription(roomDescs.get(randomNumber));            
             rooms[index].setRoomDescription(roomDescs.get(randomNumber));
             roomNames.remove(randomNumber);
             roomDescs.remove(randomNumber);
             if(rand.nextBoolean())
             {
                 debug("Room " + index + " has two doors.");
-                rooms[index].appendRoomDescription("There are two doors here.");
+                rooms[index].appendRoomDescription("There are 2 doors here.");
                 if(rand.nextBoolean())
                 {
                     debug("Room " + index + "'s door one progresses.");
@@ -124,7 +144,7 @@ public class BetrayalAtTheTextOnTheScreen
             else
             {
                 debug("Room " + index + " has three doors here.");
-                rooms[index].appendRoomDescription("There are three doors here.");
+                rooms[index].appendRoomDescription("There are 3 doors here.");
                 randomNumber = rand.nextInt(3);
                 switch(randomNumber)
                 {
