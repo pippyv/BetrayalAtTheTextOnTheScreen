@@ -7,6 +7,7 @@ import java.util.List;
 /**
  *
  * Room Class - instantiated for each room.<br>
+ * EDIT
  * Constructor initializes room name, reference number integer, and destination 
  * for three doors (defaulted to NON_APPLICABLE).<br>
  * Reference number has no range restrictions.<br>
