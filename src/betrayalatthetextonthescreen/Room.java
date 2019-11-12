@@ -12,6 +12,8 @@ package betrayalatthetextonthescreen;
  * Methods: get/set room number, get/set room name, get/set door, get/set/append room description, if door exists, get number of doors, to string<br>
  * <P>
  * TODO<br>  
+ * Room inventory list for items on the floor<br>
+ * Room visited variable<br>
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  *

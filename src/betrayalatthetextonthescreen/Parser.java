@@ -22,10 +22,13 @@ public class Parser
      * parseInput prints prompt on standard output (ie console)
      * reads next line
      * parses the command
+     * TODO<br>
+     * Get rid of comma reliance
+     * Trim Strings before sending them to other classes
      * 
      * @return command entered by user, including "quit" = quit game
      */
-    public String parseInput() {
+    public String[] parseInput() {
         String temp;
         
         System.out.println ("Please enter menu command, followed by object/direction"
@@ -66,7 +69,7 @@ public class Parser
                 System.out.println ("Invalid command");
         
         }    
-        return cmd[0];
+        return cmd;
 
     }
     

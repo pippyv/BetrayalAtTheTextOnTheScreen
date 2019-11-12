@@ -13,6 +13,7 @@ import java.util.List;
  * <P>
  * TODO:<br>
  * Default player name constructor<br>
+ * Possibly make addInventoryItem a boolean?<br>
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  * 
@@ -88,7 +89,8 @@ public class Player {
         boolean playerHasItem = false;
         for (String playerInventoryItem : this.playerInventory) 
         {
-            if (playerInventoryItem.equals(item)) 
+            System.out.println(playerInventoryItem.toLowerCase());
+            if (playerInventoryItem.toLowerCase().equals(item)) 
             {
                 playerHasItem = true;
             }
@@ -119,17 +121,18 @@ public class Player {
      * Remove Inventory Item Method<br>
      * Checks if the player's inventory contains the specified item and removes the item if present.<br>
      * @param item - item to be removed from the inventory<br>
-     * @return String - String to be printed informing the player if the operation was successful<br>
+     * @return Boolean - True if the specified item was in the player's inventory, else false<br>
      */
-    public String removeInventoryItem(String item)
+    public Boolean removeInventoryItem(String item)
     {
-        if(this.playerInventory.contains(item))
+        boolean hasItem = false;
+        System.out.println(item);
+        if(ifPlayerHasItem(item))
         {
             this.playerInventory.remove(item);
-            return "You are no longer carrying " + item + ".";
+            hasItem = true;
         }
-        else
-            return "You are not carrying " + item + ".";
+        return hasItem;
     }
     
     /**

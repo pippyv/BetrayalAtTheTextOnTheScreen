@@ -10,8 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 /**
- * main class
- *
+ * Main Class<br>
+ * <P>
+ * TODO<br>
+ * Move parser handler into another method<br>
+ * Move map builder into another file<br>
+ * Move debugger into another file<br>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class BetrayalAtTheTextOnTheScreen 
@@ -20,7 +24,7 @@ public class BetrayalAtTheTextOnTheScreen
     static Room[] rooms = new Room[NUMBER_OF_ROOMS];
     static Player player;
     static List<String> roomNames = new ArrayList<String>(Arrays.asList("Kitchen", "Bathroom", "Main Hall", "Bedroom", "Living Room", "Study", "Observatory"));
-    static List<String> roomDescs = new ArrayList<String>(Arrays.asList("KitchenDesc", "BathroomDesc", "Main HallDesc", "BedroomDesc", "Living RoomDesc", "StudyDesc", "ObservatoryDesc"));
+    static List<String> roomDescs = new ArrayList<String>(Arrays.asList("Kitchen Description", "Bathroom Description", "Main Hall Description", "Bedroom Description", "Living Room Description", "Study Description", "Observatory Description"));
     static boolean debug = true;
     /**
      * @param args the command line arguments
@@ -29,20 +33,37 @@ public class BetrayalAtTheTextOnTheScreen
     {
         buildMap();
         player = new Player("Player 1");
-        player.addInventoryItem("No Tea");
+        player.addInventoryItem("Blueberry");
         Parser parser = new Parser();
-        String userInput = parser.parseInput();
-        while (!userInput.equals("quit")) {
-            switch (userInput)
+        String[] userInputArray = parser.parseInput();
+        while (!userInputArray[0].equals("quit")) 
+        {
+            switch (userInputArray[0])
             {
                 case "inventory":
                     System.out.println(player.getPlayerInventory());
                     break;
+                case "drop":
+                case "put down":
+                    //System.out.println(userInputArray[1]);
+                    if(player.removeInventoryItem(userInputArray[1]))
+                    {
+                        rooms[player.getPlayerLocation()].appendRoomDescription("There is a " + userInputArray[1] + " on the floor here.");
+                        System.out.println("You are no longer carrying " + userInputArray[1] + ".");
+                    }
+                    else
+                        System.out.println("You are not carrying " + userInputArray[1] + ".");
+                    break;
+                case "look":
+                case "view":
+                    System.out.println("You are in the " + rooms[player.getPlayerLocation()].getRoomName());
+                    System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
+                    break;
                 default:
-            }
-            userInput = parser.parseInput();
+            }        
+            System.out.println();
+            userInputArray = parser.parseInput();
         }
-        // TODO code application logic here
     }
     
     static void debug(String message)
