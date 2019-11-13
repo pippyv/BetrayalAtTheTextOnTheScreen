@@ -10,6 +10,7 @@ import java.util.List;
  * Constructor initializes player name (if no name is specified, should default 
  * to DEFAULT_PLAYER_NAME), current player location (defaulted to room number 0), 
  * and player inventory.<br>
+ * <P>
  * Instance variables: player name, current player location, and player inventory<br>
  * Methods: get/set player name, get/set player location, get/set player inventory, 
  * clear player inventory, if player has item, add/remove inventory item, 
@@ -85,7 +86,7 @@ public class Player {
      * If Player Has Item Method<br>
      * Checks if the player's inventory contains specified items.  Returns a boolean.<br>
      * @param item item to be searched for<br>
-     * @return boolean value true if player has specified item, else false<br>
+     * @return - boolean value true if player has specified item, else false<br>
      */
     public int ifPlayerHasItem (String item)
     {
@@ -105,7 +106,7 @@ public class Player {
      * Add Inventory Item<br>
      * Checks if the player's inventory has enough space to hold another item and then either adds the specified item or informs the player that their inventory is full.<br>
      * @param item item to be added to the inventory<br>
-     * @return boolean value true if player can hold another item, else false<br>
+     * @return - boolean value true if player can hold another item, else false<br>
      */
     public boolean addInventoryItem(String item)
     {
@@ -123,8 +124,8 @@ public class Player {
     /**
      * Remove Inventory Item Method<br>
      * Checks if the player's inventory contains the specified item and removes the item if present.<br>
-     * @param item - item to be removed from the inventory<br>
-     * @return Boolean - True if the specified item was in the player's inventory, else false<br>
+     * @param item item to be removed from the inventory<br>
+     * @return boolean value - True if the specified item was in the player's inventory, else false<br>
      */
     public Boolean removeInventoryItem(String item)
     {

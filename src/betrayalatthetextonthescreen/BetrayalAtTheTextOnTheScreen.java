@@ -13,9 +13,9 @@ import java.util.Random;
  * Main Class<br>
  * <P>
  * TODO<br>
- * Move parser handler into another method<br>
- * Move map builder into another file<br>
- * Move debugger into another file<br>
+ * Move map builder into another file.<br>
+ * Move debugger into another file.<br>
+ * Move parser handler into another file.<br>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class BetrayalAtTheTextOnTheScreen 
@@ -34,6 +34,7 @@ public class BetrayalAtTheTextOnTheScreen
         buildMap();
         player = new Player("Player 1");
         player.addInventoryItem("Blueberry");
+        System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
         parse();
     }
     
@@ -44,8 +45,14 @@ public class BetrayalAtTheTextOnTheScreen
     }
     
     /**
-     * Parse Method
-     * 
+     * Parse Method<br>
+     * Initializes instance of the parser class.<br>
+     * Saves user input processed by the parser and responds accordingly.<br> 
+     * <P>
+     * TODO:<br>
+     * Exception for if door number is incorrect to prevent crash.<br>
+     * Accept alternate methods of specifying door to move through.<br>
+     * Move out of main and into another file.<br>
      */
     static void parse()
     {
@@ -60,7 +67,7 @@ public class BetrayalAtTheTextOnTheScreen
                     break;
                 case "drop":
                 case "put down":
-                    //System.out.println(userInputArray[1]);
+                    //System.out.println(userInputArray[1]); <- Debug
                     if(player.removeInventoryItem(userInputArray[1]))
                     {
                         rooms[player.getPlayerLocation()].addInventoryItem(userInputArray[1]);
@@ -72,7 +79,6 @@ public class BetrayalAtTheTextOnTheScreen
                     break;
                 case "look":
                 case "view":
-                    System.out.println("You are in the " + rooms[player.getPlayerLocation()].getRoomName());
                     System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
                     break;
                 case "pick up":
@@ -96,12 +102,7 @@ public class BetrayalAtTheTextOnTheScreen
                 case "move":
                 case "go":
                     player.setPlayerLocation(rooms[player.getPlayerLocation()].getDoor(Integer.parseInt(userInputArray[1])));
-                    System.out.println("You are in the " + rooms[player.getPlayerLocation()].getRoomName());
-                    if(!rooms[player.getPlayerLocation()].getRoomVisited())
-                    {
-                        System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
-                        rooms[player.getPlayerLocation()].setRoomVisited(true);
-                    }
+                    System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
                     break;
                 default:
             }        

@@ -12,11 +12,12 @@ import java.util.List;
  * Reference number has no range restrictions.<br>
  * Assumes external code will initialize destinations for doors.<br>
  * Assumes external code handles pathing.<br>
+ * <P>
  * Instance variables: room name, base room description, room description, 
  * doors array, room reference number, and room inventory array list<br>
- * Methods: constructor, get/set room number, get/set room name, get/set door, 
- * get/set base room description, get/set/append room description, if door exists, 
- * get number of doors, get/set room inventory, add/remove inventory item, 
+ * Methods: constructor, get/set room number, get/set room name, get/set door,
+ * get/set room visited, get/set base room description, get/set/append/enter room description, 
+ * if door exists, get number of doors, get/set room inventory, add/remove inventory item, 
  * if room has item, and to string<br>
  * <P>
  * TODO<br>  
@@ -126,9 +127,29 @@ public class Room
     }
     
     /**
+     * Enter Room Description Method<br>
+     * Checks to see if the room the player is entering has been visited before.<br>
+     * If so, returns a String to tell the player what room they are in.<br> 
+     * Otherwise marks the room as visited and returns the full room description.<br>
+     * @return String - Description to be printed upon entering the room.
+     */
+    public String enterRoomDescription()
+    {
+        if (this.roomVisited) 
+        {
+            return "You are in the " + this.roomName;
+        }
+        else
+        {
+            this.roomVisited = true;
+            return this.roomDescription;
+        }
+    }
+    
+    /**
      * If Door Exists Method<br>
      * Checks if there is a non-default destination for the specified door.  Returns a boolean.<br>
-     * @param door - integer number of door in question<br>
+     * @param door integer number of door in question<br>
      * @return boolean value - false if door is default, else true.<br>
      */
     public boolean ifDoorExists(int door)
@@ -142,7 +163,7 @@ public class Room
      /**
      * Get Number Of Doors Method<br>
      * Counts the number of doors in the room that have viable destinations.<br>
-     * @return int Number of doors in the room<br>
+     * @return int - Number of doors in the room<br>
      */
     public int getNumberOfDoors()
     {
@@ -184,7 +205,7 @@ public class Room
      * Checks if the room's inventory contains specified item and, if so, removes it.<br>
      * Then regenerates the room description to not include removed item.<br>
      * @param item specified item to be removed from room's inventory<br>
-     * @return boolean value true if operation was successful, else false<br>
+     * @return boolean value - true if operation was successful, else false<br>
      */
     public boolean removeInventoryItem(String item)
     {
@@ -207,7 +228,7 @@ public class Room
      * If Room Has Item Method<br>
      * Checks if room's inventory contains specified item.<br>
      * @param item specified item to be searched for<br>
-     * @return boolean value true if room's inventory contains item, else false.<br>
+     * @return boolean value - true if room's inventory contains item, else false.<br>
      */
     public boolean ifRoomHasItem(String item)
     {
@@ -230,7 +251,7 @@ public class Room
      * Creates and returns a string containing the name, reference number, 
      * door destinations, base description, room inventory contents, 
      * and current description for the room.<br>
-     * @return String all information regarding the Room and its variables.<br>
+     * @return String - All information regarding the Room and its variables.<br>
      */
     public String toString()
     {
