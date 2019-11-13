@@ -7,7 +7,6 @@ import java.util.List;
 /**
  *
  * Room Class - instantiated for each room.<br>
- * EDIT
  * Constructor initializes room name, reference number integer, and destination 
  * for three doors (defaulted to NON_APPLICABLE).<br>
  * Reference number has no range restrictions.<br>
@@ -21,7 +20,6 @@ import java.util.List;
  * if room has item, and to string<br>
  * <P>
  * TODO<br>  
- * Room visited variable<br>
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  *
@@ -37,6 +35,7 @@ public class Room
     private int[] doors = new int[MAX_NUMBER_OF_DOORS];
     private int roomNumber;
     private List<String> roomInventory;
+    private Boolean roomVisited;
     
     /**
      * Room Constructor 
@@ -53,6 +52,7 @@ public class Room
         for (int index = 0; index < MAX_NUMBER_OF_DOORS; index++) 
             doors[index] = NON_APPLICABLE;
         roomInventory = new ArrayList<String>();
+        roomVisited = false;
     }
     
     public int getRoomNumber()
@@ -85,6 +85,16 @@ public class Room
         this.doors[door - 1] = destination;
     }
     
+    public Boolean getRoomVisited()
+    {
+        return this.roomVisited;
+    }
+    
+    public void setRoomVisited(Boolean visited)
+    {
+        this.roomVisited = visited;
+    }
+    
     public String getBaseRoomDescription()
     {
         return this.baseRoomDescription;
@@ -108,7 +118,7 @@ public class Room
     /**
      * Append Room Description Method<br>
      * Appends a provided String onto the room description on a new line.<br>
-     * @param description - String to be appended.<br>
+     * @param description String to be appended.<br>
      */
     public void appendRoomDescription(String description)
     {

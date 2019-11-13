@@ -34,6 +34,21 @@ public class BetrayalAtTheTextOnTheScreen
         buildMap();
         player = new Player("Player 1");
         player.addInventoryItem("Blueberry");
+        parse();
+    }
+    
+    static void debug(String message)
+    {
+        if (debug) 
+            System.out.println(message);
+    }
+    
+    /**
+     * Parse Method
+     * 
+     */
+    static void parse()
+    {
         Parser parser = new Parser();
         String[] userInputArray = parser.parseInput();
         while (!userInputArray[0].equals("quit")) 
@@ -77,18 +92,22 @@ public class BetrayalAtTheTextOnTheScreen
                     {
                         System.out.println("You don't see a " + userInputArray[1] + " here.");
                     }
-                break;
+                    break;
+                case "move":
+                case "go":
+                    player.setPlayerLocation(rooms[player.getPlayerLocation()].getDoor(Integer.parseInt(userInputArray[1])));
+                    System.out.println("You are in the " + rooms[player.getPlayerLocation()].getRoomName());
+                    if(!rooms[player.getPlayerLocation()].getRoomVisited())
+                    {
+                        System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
+                        rooms[player.getPlayerLocation()].setRoomVisited(true);
+                    }
+                    break;
                 default:
             }        
             System.out.println();
             userInputArray = parser.parseInput();
         }
-    }
-    
-    static void debug(String message)
-    {
-        if (debug) 
-            System.out.println(message);
     }
     
     /**
@@ -100,7 +119,7 @@ public class BetrayalAtTheTextOnTheScreen
      * Selects one door per room at random to lead to a predetermined route that ensures every room is accessible.<br>
      * Randomizes the destination for any remaining doors (can lead to themselves).<br>
      * Prints debug to console.<br>
-     * Assumes NUMBER_OF_ROOMS is defined within file
+     * Assumes NUMBER_OF_ROOMS is defined within file<br>
      * <P>
      * TODO<br> 
      * Move out of main and into another file.<br>

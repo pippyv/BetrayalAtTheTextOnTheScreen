@@ -7,13 +7,16 @@ import java.util.List;
 /**
  *
  * Player Class - instantiated for each player (currently 1 player).<br>
- * Constructor initializes player name (if no name is specified, should default to DEFAULT_PLAYER_NAME), current player location (defaulted to room number 0), and player inventory.<br>
+ * Constructor initializes player name (if no name is specified, should default 
+ * to DEFAULT_PLAYER_NAME), current player location (defaulted to room number 0), 
+ * and player inventory.<br>
  * Instance variables: player name, current player location, and player inventory<br>
- * Methods: get/set player name, get/set player location, get/set player inventory, clear player inventory, if player has item, add/remove inventory item.<br>
+ * Methods: get/set player name, get/set player location, get/set player inventory, 
+ * clear player inventory, if player has item, add/remove inventory item, 
+ * and to string.<br>
  * <P>
  * TODO:<br>
  * Default player name constructor<br>
- * Possibly make addInventoryItem a boolean?<br>
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  * 
