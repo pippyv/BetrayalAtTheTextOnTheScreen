@@ -35,8 +35,9 @@ public class Room
     private String roomDescription;
     private int[] doors = new int[MAX_NUMBER_OF_DOORS];
     private int roomNumber;
-    private List<String> roomInventory;
+    private Inventory roomInventory;
     private Boolean roomVisited;
+    private Debug debug;
     
     /**
      * Room Constructor 
@@ -52,8 +53,9 @@ public class Room
         roomName = name;
         for (int index = 0; index < MAX_NUMBER_OF_DOORS; index++) 
             doors[index] = NON_APPLICABLE;
-        roomInventory = new ArrayList<String>();
+        roomInventory = new Inventory();
         roomVisited = false;
+        debug = new Debug();
     }
     
     public int getRoomNumber()
@@ -178,15 +180,15 @@ public class Room
         return returnInt;
     }
     
-    public List<String> getRoomInventory()
+    public Inventory getRoomInventory()
     {
         return this.roomInventory;
     }
     
     public void setRoomInventory(List<String> items)
     {
-        roomInventory.clear();
-        roomInventory = items;
+        this.roomInventory.clearInventory();
+        this.roomInventory.setInventory(items);
     }
     
     /**
@@ -196,8 +198,8 @@ public class Room
      */
     public void addInventoryItem(String item)
     {
-        this.roomInventory.add(item);
-        //System.out.println("dropped " + item + " hit the floor"); <- Debug
+        this.roomInventory.addInventoryItem(item);
+        debug.debug("dropped " + item + " hit the floor");
     }
     
     /**
@@ -207,24 +209,23 @@ public class Room
      * @param item specified item to be removed from room's inventory<br>
      * @return boolean value - true if operation was successful, else false<br>
      */
-    public boolean removeInventoryItem(String item)
+    public void removeInventoryItem(String item)
     {
-        boolean hasItem = false;
-        if(ifRoomHasItem(item))
+        if(this.roomInventory.ifHasItem(item))
         {
-            hasItem = true;
-            this.roomInventory.remove(item);
+            this.roomInventory.removeInventoryItem(item);
             this.roomDescription = this.baseRoomDescription;
             appendRoomDescription("There are " + getNumberOfDoors() + " doors here.");
-            for(String roomInventoryItem : this.roomInventory)
+            List<String> inventory = this.roomInventory.getInventory();
+            for(String roomInventoryItem : inventory)
             {
                 appendRoomDescription("There is a " + roomInventoryItem + " on the floor here.");
             }
         }
-        return hasItem;
     }
     
     /**
+     * 
      * If Room Has Item Method<br>
      * Checks if room's inventory contains specified item.<br>
      * @param item specified item to be searched for<br>
@@ -232,18 +233,7 @@ public class Room
      */
     public boolean ifRoomHasItem(String item)
     {
-        boolean hasItem = false;
-        for(String roomInventoryItem : this.roomInventory)
-        {
-            System.out.println(roomInventoryItem);
-            System.out.println(item);
-            if (roomInventoryItem.toLowerCase().equals(item.toLowerCase())) 
-            {
-                hasItem = true;
-                //System.out.println("room has " + item); <-Debug
-            }
-        }
-        return hasItem;
+        return this.roomInventory.ifHasItem(item);
     }
     
     /**
@@ -269,11 +259,7 @@ public class Room
             else
                 returnString += "\tDoor " + (i + 1) + ": NA";
         }
-        returnString += "Room contains: ";
-        for(String item : this.roomInventory)
-        {
-            returnString += "\n" + item;
-        }
+        returnString += this.roomInventory;
         returnString += "\n";
        return returnString;
     }

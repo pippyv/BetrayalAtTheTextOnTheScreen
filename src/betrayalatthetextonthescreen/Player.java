@@ -27,7 +27,8 @@ public class Player {
     static final int MAX_INVENTORY_SIZE = 10;
     private String playerName;
     private int playerLocation;
-    private List<String> playerInventory;
+    private Inventory playerInventory;
+    private Debug debug;
     
     /**
      * Player constructor<br>
@@ -39,7 +40,8 @@ public class Player {
     {
         playerName = name;
         playerLocation = 0;
-        playerInventory = new ArrayList<String>();
+        playerInventory = new Inventory(MAX_INVENTORY_SIZE);
+        debug = new Debug();
     }
     
     public String getPlayerName()
@@ -62,15 +64,15 @@ public class Player {
         this.playerLocation = room;
     }
     
-    public List<String> getPlayerInventory()
+    public Inventory getPlayerInventory()
     {
         return this.playerInventory;
     }
     
     public void setPlayerInventory(List<String> items)
     {
-        this.playerInventory.clear();
-        this.playerInventory = items;
+        this.playerInventory.clearInventory();
+        this.playerInventory.setInventory(items);
     }
     
     /**
@@ -79,7 +81,7 @@ public class Player {
      */
     public void clearPlayerInventory()
     {
-        this.playerInventory.clear();
+        this.playerInventory.clearInventory();
     }
     
     /**
@@ -88,18 +90,10 @@ public class Player {
      * @param item item to be searched for<br>
      * @return - boolean value true if player has specified item, else false<br>
      */
-    public int ifPlayerHasItem (String item)
+    public int getPlayerInventoryIndex (String item)
     {
-        int playerHasItem = -1;
-        for (int index = 0; index < this.playerInventory.size(); index ++) 
-        {
-            //System.out.println(this.playerInventory.get(index).toLowerCase()); <- Debug
-            if (playerInventory.get(index).toLowerCase().equals(item)) 
-            {
-                playerHasItem = index;
-            }
-        }
-        return playerHasItem;
+        int index = this.playerInventory.getInventoryItemIndex(item);
+        return index;
     }
 
     /**
@@ -108,17 +102,15 @@ public class Player {
      * @param item item to be added to the inventory<br>
      * @return - boolean value true if player can hold another item, else false<br>
      */
-    public boolean addInventoryItem(String item)
+    public void addInventoryItem(String item)
     {
-        boolean canAddItem = false;
-        //System.out.println("There are " + playerInventory.size() + " items in player's inventory."); <- Debug
-        
-        if(this.playerInventory.size() < MAX_INVENTORY_SIZE)
-        {
-            this.playerInventory.add(item);
-            canAddItem = true;
-        }
-        return canAddItem;
+        debug.debug("There are " + playerInventory.getInventoryLength() + " items in player's inventory.");
+        this.playerInventory.addInventoryItem(item);
+    }
+    
+    public boolean canAddInventoryItem(String item)
+    {
+        return this.playerInventory.canAddInventoryItem();
     }
     
     /**
@@ -127,17 +119,14 @@ public class Player {
      * @param item item to be removed from the inventory<br>
      * @return boolean value - True if the specified item was in the player's inventory, else false<br>
      */
-    public Boolean removeInventoryItem(String item)
+    public void removeInventoryItem(String item)
     {
-        boolean hasItem = false;
-        //System.out.println(item); <- Debug
-        if(ifPlayerHasItem(item) != -1)
-        {
-            this.playerInventory.remove(ifPlayerHasItem(item));
-            //System.out.println(item + " has been removed."); <- Debug
-            hasItem = true;
-        }
-        return hasItem;
+        this.playerInventory.removeInventoryItem(item);
+    }
+    
+    public boolean canRemoveInventoryItem(String item)
+    {
+        return this.playerInventory.ifHasItem(item);
     }
     
     /**
@@ -149,11 +138,8 @@ public class Player {
     {
         String returnString = "";
         returnString += "Name: " + this.playerName;
-        returnString += "/tLocation: " + this.playerLocation + "/tInventory contains: ";
-        for(String inventoryItem : this.playerInventory)
-        {
-            returnString += inventoryItem + "/t";
-        }
+        returnString += "/tLocation: " + this.playerLocation + "/n";
+        returnString += this.playerInventory;
         return returnString;
     }
     // other methods to follow

@@ -13,7 +13,7 @@ import java.util.Random;
  * Main Class<br>
  * <P>
  * TODO<br>
- * Move map builder into another file.<br>
+ * Move map builder into another fil+e.<br>
  * Move debugger into another file.<br>
  * Move parser handler into another file.<br>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
@@ -23,9 +23,9 @@ public class BetrayalAtTheTextOnTheScreen
     final static int NUMBER_OF_ROOMS = 7;
     static Room[] rooms = new Room[NUMBER_OF_ROOMS];
     static Player player;
+    static Debug debug;
     static List<String> roomNames = new ArrayList<String>(Arrays.asList("Kitchen", "Bathroom", "Main Hall", "Bedroom", "Living Room", "Study", "Observatory"));
     static List<String> roomDescs = new ArrayList<String>(Arrays.asList("Kitchen Description", "Bathroom Description", "Main Hall Description", "Bedroom Description", "Living Room Description", "Study Description", "Observatory Description"));
-    static boolean debug = false;
     /**
      * @param args the command line arguments
      */
@@ -33,15 +33,10 @@ public class BetrayalAtTheTextOnTheScreen
     {
         buildMap();
         player = new Player("Player 1");
+        debug = new Debug();
         player.addInventoryItem("Blueberry");
         System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
         parse();
-    }
-    
-    static void debug(String message)
-    {
-        if (debug) 
-            System.out.println(message);
     }
     
     /**
@@ -67,9 +62,10 @@ public class BetrayalAtTheTextOnTheScreen
                     break;
                 case "drop":
                 case "put down":
-                    //System.out.println(userInputArray[1]); <- Debug
-                    if(player.removeInventoryItem(userInputArray[1]))
+                    debug.debug(userInputArray[1]);
+                    if(player.canRemoveInventoryItem(userInputArray[1]))
                     {
+                        player.removeInventoryItem(userInputArray[1]);
                         rooms[player.getPlayerLocation()].addInventoryItem(userInputArray[1]);
                         rooms[player.getPlayerLocation()].appendRoomDescription("There is a " + userInputArray[1] + " on the floor here.");
                         System.out.println("You are no longer carrying " + userInputArray[1] + ".");
@@ -82,15 +78,16 @@ public class BetrayalAtTheTextOnTheScreen
                     System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
                     break;
                 case "pick up":
-                    if(rooms[player.getPlayerLocation()].removeInventoryItem(userInputArray[1]))
+                    if(rooms[player.getPlayerLocation()].ifRoomHasItem(userInputArray[1]))
                     {
-                        if (player.addInventoryItem(userInputArray[1])) 
+                        if (player.canAddInventoryItem(userInputArray[1])) 
                         {
+                            player.addInventoryItem(userInputArray[1]);
+                            rooms[player.getPlayerLocation()].removeInventoryItem(userInputArray[1]);
                             System.out.println(userInputArray[1] + " has been added to your inventory.");
                         }
                         else
                         {
-                            rooms[player.getPlayerLocation()].addInventoryItem(userInputArray[1]);
                             System.out.println("You can't carry anything more.  You leave the " + userInputArray[1] + " where it is.");
                         }    
                     }
@@ -146,42 +143,42 @@ public class BetrayalAtTheTextOnTheScreen
             roomDescs.remove(randomNumber);
             if(rand.nextBoolean())
             {
-                debug("Room " + index + " has two doors.");
+                debug.debug("Room " + index + " has two doors.");
                 rooms[index].appendRoomDescription("There are 2 doors here.");
                 if(rand.nextBoolean())
                 {
-                    debug("Room " + index + "'s door one progresses.");
+                    debug.debug("Room " + index + "'s door one progresses.");
                     rooms[index].setDoor(1, roomList.get(index));
                     rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
                 else
                 {
-                    debug("Room " + index + "'s door two progresses.");
+                    debug.debug("Room " + index + "'s door two progresses.");
                     rooms[index].setDoor(2, roomList.get(index));
                     rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
             }
             else
             {
-                debug("Room " + index + " has three doors here.");
+                debug.debug("Room " + index + " has three doors here.");
                 rooms[index].appendRoomDescription("There are 3 doors here.");
                 randomNumber = rand.nextInt(3);
                 switch(randomNumber)
                 {
                     case 0:
-                        debug("Room " + index + "'s door one progresses.");
+                        debug.debug("Room " + index + "'s door one progresses.");
                         rooms[index].setDoor(1, roomList.get(index));
                         rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(3, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 1:
-                        debug("Room " + index + "'s door two progresses.");
+                        debug.debug("Room " + index + "'s door two progresses.");
                         rooms[index].setDoor(2, roomList.get(index));
                         rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(3, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 2:
-                        debug("Room " + index + "'s door three progresses.");
+                        debug.debug("Room " + index + "'s door three progresses.");
                         rooms[index].setDoor(3, roomList.get(index));
                         rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
@@ -191,7 +188,7 @@ public class BetrayalAtTheTextOnTheScreen
         }
         for (int index = 0; index < NUMBER_OF_ROOMS; index++) 
         {
-            debug(rooms[index].toString());
+            debug.debug(rooms[index].toString());
         }
     }
     
