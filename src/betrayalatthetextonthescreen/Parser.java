@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Parser 
 {
     private final String action [] = {"pick up", "put down", "drop", "go", "move",
-                "open", "look", "view", "check inventory", "inventory"};
+                "open", "look", "view", "check inventory", "inventory", "quit"};
     Scanner scan;
     private Debug debug;
     
