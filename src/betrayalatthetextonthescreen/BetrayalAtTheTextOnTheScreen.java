@@ -34,7 +34,7 @@ public class BetrayalAtTheTextOnTheScreen
         debug = new Debug();
         buildMap();
         player = new Player("Player 1");
-        player.addInventoryItem("Blueberry");
+        player.addInventoryItem("no");
         System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
         parse();
     }
