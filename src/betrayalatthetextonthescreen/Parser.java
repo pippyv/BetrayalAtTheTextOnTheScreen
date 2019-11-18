@@ -9,12 +9,14 @@ import java.util.Scanner;
 public class Parser 
 {
     private final String action [] = {"pick up", "put down", "drop", "go", "move",
-                "open", "look", "view", "view inventory", "inventory", "quit"};
+                "open", "look", "view", "check inventory", "inventory"};
     Scanner scan;
+    private Debug debug;
     
     Parser()
     {
         scan = new Scanner(System.in);
+        debug = new Debug();
     }
     
     
@@ -30,32 +32,38 @@ public class Parser
      */
     public String[] parseInput() {
         String temp;
+        String input;
         
-        System.out.println ("Please enter menu command, followed by object/direction"
-                + ", seperated by a comma");
+        System.out.println ("Please enter menu command, followed by object/direction");
+               // + ", seperated by a comma");
         temp = scan.nextLine();
         temp = temp.toLowerCase();
              
         
-        String cmd [] = temp.split(",");      
-        System.out.println ("Commands: " + Arrays.toString(cmd));   
+        input = temp.trim().replaceAll(" +", " ");
+        //String cmd [] = temp.split(",");   
+        String cmd [] = input.split(" ");
+        System.out.println ("Commands: " + Arrays.toString(cmd));    
         
         switch (cmd[0])
         {
             case "inventory":
-            case "view inventory":
-            case "open":
+            case "open": 
+            case "check":
                 checkInventory();
                 break;
-            case "look":
             case "view":
+            case "look":
                 checkSurrounding();
                 break;
-            case "pick up":
-                // check size of cmd[] array, if not two or >, invalid
-                pickUp(cmd[1]);
+            case "pick":
+                    cmd[1] = cmd[2];
+                    pickUp(cmd[1]);
+                    break;
+            case "put":
+                    cmd[1] = cmd[2];
+                    putDown(cmd[1]);    
                 break;
-            case "put down":
             case "drop":
                 putDown(cmd[1]);
                 break;
@@ -64,11 +72,12 @@ public class Parser
                 moveDirection(cmd[1]);
                 break;
             case "quit":
+                System.out.println ("Thank you for Playing");
                 break;
             default:
                 System.out.println ("Invalid command");
         
-        }    
+        }
         return cmd;
 
     }

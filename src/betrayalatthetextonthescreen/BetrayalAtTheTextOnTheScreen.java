@@ -61,7 +61,7 @@ public class BetrayalAtTheTextOnTheScreen
                     System.out.println(player.getPlayerInventory());
                     break;
                 case "drop":
-                case "put down":
+                case "put":
                     debug.debug(userInputArray[1]);
                     if(player.canRemoveInventoryItem(userInputArray[1]))
                     {
@@ -77,7 +77,7 @@ public class BetrayalAtTheTextOnTheScreen
                 case "view":
                     System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
                     break;
-                case "pick up":
+                case "pick":
                     if(rooms[player.getPlayerLocation()].ifRoomHasItem(userInputArray[1]))
                     {
                         if (player.canAddInventoryItem()) 

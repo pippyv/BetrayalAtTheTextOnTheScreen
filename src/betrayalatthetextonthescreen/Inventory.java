@@ -93,8 +93,11 @@ public class Inventory
         boolean hasItem = false;
         for(String inventoryItem : this.inventory)
         {
-            if(inventoryItem.toLowerCase().equals(item.toLowerCase()))
+            if(inventoryItem.toLowerCase().equals(item.toLowerCase().trim()))
+            {
+                debug.debug("Inventory has " + item);
                 hasItem = true;
+            }
         }
         return hasItem;
     }
@@ -109,6 +112,7 @@ public class Inventory
         if(ifHasItem(item))
         {
             this.inventory.remove(item);
+            debug.debug(item + " is removed.");
         }
     }
     
