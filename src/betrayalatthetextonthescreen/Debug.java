@@ -6,12 +6,15 @@
 package betrayalatthetextonthescreen;
 
 /**
- *
+ * Debug class - instantiated for every other class.<br>
+ * Constructor initializes absolutely nothing.<br>
+ * <P>
+ * Methods: debug<br>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class Debug 
 {
-    private final boolean debug = false;
+    private final boolean DEBUG = false;
     
     Debug()
     {    
@@ -19,7 +22,7 @@ public class Debug
     
     public void debug(String message)
     {
-        if(debug)
+        if(DEBUG)
             System.out.println(message);
     }
 }

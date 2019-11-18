@@ -14,7 +14,7 @@ import java.util.List;
  * Assumes external code handles pathing.<br>
  * <P>
  * Instance variables: room name, base room description, room description, 
- * doors array, room reference number, and room inventory array list<br>
+ * doors array, room reference number, room inventory, and debug<br>
  * Methods: constructor, get/set room number, get/set room name, get/set door,
  * get/set room visited, get/set base room description, get/set/append/enter room description, 
  * if door exists, get number of doors, get/set room inventory, add/remove inventory item, 
@@ -225,7 +225,6 @@ public class Room
     }
     
     /**
-     * 
      * If Room Has Item Method<br>
      * Checks if room's inventory contains specified item.<br>
      * @param item specified item to be searched for<br>

@@ -31,9 +31,9 @@ public class BetrayalAtTheTextOnTheScreen
      */
     public static void main(String[] args) 
     {
+        debug = new Debug();
         buildMap();
         player = new Player("Player 1");
-        debug = new Debug();
         player.addInventoryItem("Blueberry");
         System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
         parse();
@@ -80,7 +80,7 @@ public class BetrayalAtTheTextOnTheScreen
                 case "pick up":
                     if(rooms[player.getPlayerLocation()].ifRoomHasItem(userInputArray[1]))
                     {
-                        if (player.canAddInventoryItem(userInputArray[1])) 
+                        if (player.canAddInventoryItem()) 
                         {
                             player.addInventoryItem(userInputArray[1]);
                             rooms[player.getPlayerLocation()].removeInventoryItem(userInputArray[1]);
@@ -109,7 +109,6 @@ public class BetrayalAtTheTextOnTheScreen
     }
     
     /**
-     *
      * Map Builder Method<br>
      * Creates as many rooms as specified by NUMBER_OF_ROOMS constant.<br>
      * Randomly selects a name for each room and sets a corresponding room description.<br>
@@ -121,7 +120,6 @@ public class BetrayalAtTheTextOnTheScreen
      * <P>
      * TODO<br> 
      * Move out of main and into another file.<br>
-     *
      */
     static void buildMap()
     {

@@ -11,13 +11,12 @@ import java.util.List;
  * to DEFAULT_PLAYER_NAME), current player location (defaulted to room number 0), 
  * and player inventory.<br>
  * <P>
- * Instance variables: player name, current player location, and player inventory<br>
- * Methods: get/set player name, get/set player location, get/set player inventory, 
- * clear player inventory, if player has item, add/remove inventory item, 
+ * Instance variables: player name, current player location, player inventory, and debug<br>
+ * Methods: get/set player name, get/set player location, get/set/clear player inventory, 
+ * get player inventory index, can add/add/remove/can remove inventory item, 
  * and to string.<br>
  * <P>
  * TODO:<br>
- * Default player name constructor<br>
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  * 
@@ -32,10 +31,21 @@ public class Player {
     
     /**
      * Player constructor<br>
+     * Calls second player constructor with the default player name<br>
+     */
+    
+    Player()
+    {
+        this(DEFAULT_PLAYER_NAME);
+    }
+    
+    /**
+     * Player constructor<br>
      * Initializes player name and inventory<br>
      * Initializes player location to 0<br>
-     * @param name - player name<br>
+     * @param name player name<br>
      */
+    
     Player (String name) 
     {
         playerName = name;
@@ -85,10 +95,10 @@ public class Player {
     }
     
     /**
-     * If Player Has Item Method<br>
-     * Checks if the player's inventory contains specified items.  Returns a boolean.<br>
+     * Get Player Inventory Index<br>
+     * Returns the index within the player's inventory of the specified item.<br>
      * @param item item to be searched for<br>
-     * @return - boolean value true if player has specified item, else false<br>
+     * @return int - index of specified item<br>
      */
     public int getPlayerInventoryIndex (String item)
     {
@@ -97,10 +107,10 @@ public class Player {
     }
 
     /**
-     * Add Inventory Item<br>
-     * Checks if the player's inventory has enough space to hold another item and then either adds the specified item or informs the player that their inventory is full.<br>
+     * Add Inventory Item Method<br>
+     * Adds specified item to the player's inventory.<br>
+     * Prints a debug of how many items are in the player's inventory.<br>
      * @param item item to be added to the inventory<br>
-     * @return - boolean value true if player can hold another item, else false<br>
      */
     public void addInventoryItem(String item)
     {
@@ -108,22 +118,32 @@ public class Player {
         this.playerInventory.addInventoryItem(item);
     }
     
-    public boolean canAddInventoryItem(String item)
+    /**
+     * Can Add Inventory Item Method<br>
+     * Checks if there is room for another item in the player's inventory.<br>
+     * @return boolean value - True if an item can be added to the inventory, else false<br>
+     */
+    public boolean canAddInventoryItem()
     {
         return this.playerInventory.canAddInventoryItem();
     }
     
     /**
      * Remove Inventory Item Method<br>
-     * Checks if the player's inventory contains the specified item and removes the item if present.<br>
+     * Removes the specified item from the player's inventory.<br>
      * @param item item to be removed from the inventory<br>
-     * @return boolean value - True if the specified item was in the player's inventory, else false<br>
      */
     public void removeInventoryItem(String item)
     {
         this.playerInventory.removeInventoryItem(item);
     }
     
+    /**
+     * Can Remove Inventory Item Method<br>
+     * Checks if the player has the specified item.<br>
+     * @param item item to be checked<br>
+     * @return boolean value - True if player's inventory contains specified item, else false<br>
+     */
     public boolean canRemoveInventoryItem(String item)
     {
         return this.playerInventory.ifHasItem(item);
