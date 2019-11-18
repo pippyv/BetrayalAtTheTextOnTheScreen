@@ -15,6 +15,8 @@ import java.util.List;
  * Instance variables: inventory, max inventory size, and debug
  * Methods: get/set/clear inventory, can add/add/remove inventory item,
  * if has item, get inventory item index, get inventory length, and to string.<br>
+ * <P>
+ * ToDo: Fix so items in the inventory can be in camal case
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class Inventory 

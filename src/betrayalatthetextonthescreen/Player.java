@@ -16,7 +16,7 @@ import java.util.List;
  * get player inventory index, can add/add/remove/can remove inventory item, 
  * and to string.<br>
  * <P>
- * TODO:<br>
+ * ToDo:<br>
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  * 
