@@ -12,10 +12,9 @@ import java.util.Random;
 /**
  * Main Class<br>
  * <P>
- * TODO<br>
- * Move map builder into another fil+e.<br>
- * Move debugger into another file.<br>
- * Move parser handler into another file.<br>
+ * ToDo: Move map builder into another file.<br>
+ * ToDo: Move debugger into another file.<br>
+ * ToDo: Move parser handler into another file.<br>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class BetrayalAtTheTextOnTheScreen 

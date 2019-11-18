@@ -20,7 +20,7 @@ import java.util.List;
  * if door exists, get number of doors, get/set room inventory, add/remove inventory item, 
  * if room has item, and to string<br>
  * <P>
- * TODO<br>  
+ * Todo:<br>  
  *
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  *
@@ -207,7 +207,6 @@ public class Room
      * Checks if the room's inventory contains specified item and, if so, removes it.<br>
      * Then regenerates the room description to not include removed item.<br>
      * @param item specified item to be removed from room's inventory<br>
-     * @return boolean value - true if operation was successful, else false<br>
      */
     public void removeInventoryItem(String item)
     {
