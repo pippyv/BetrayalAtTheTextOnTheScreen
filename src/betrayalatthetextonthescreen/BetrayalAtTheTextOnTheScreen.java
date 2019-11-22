@@ -33,7 +33,7 @@ public class BetrayalAtTheTextOnTheScreen
         debug = new Debug();
         buildMap();
         player = new Player("Player 1");
-        player.addInventoryItem("no");
+        player.addInventoryItem("no tea");
         System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
         parse();
     }

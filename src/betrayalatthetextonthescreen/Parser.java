@@ -11,7 +11,7 @@ public class Parser
     private final String action [] = {"pick up", "put down", "drop", "go", "move",
                 "open", "look", "view", "check inventory", "inventory", "quit"};
     Scanner scan;
-    private Debug debug;
+    private static Debug debug;
     
     Parser()
     {
@@ -57,15 +57,26 @@ public class Parser
                 checkSurrounding();
                 break;
             case "pick":
-                    cmd[1] = cmd[2];
-                    pickUp(cmd[1]);
-                    break;
+                if(cmd[1].equals("up"))
+                {
+                    cmd = pickUp(cmd);
+                }
+                else
+                    System.out.println("Invalid command.");
+                break;
             case "put":
-                    cmd[1] = cmd[2];
-                    putDown(cmd[1]);    
+                if(cmd[1].equals("down"))
+                {
+                    cmd = putDown(cmd);    
+                }
+                else
+                    System.out.println("Invalid command.");
                 break;
             case "drop":
-                putDown(cmd[1]);
+                cmd = putDown(cmd);
+                break;
+            case "take":
+                cmd = pickUp(cmd);
                 break;
             case "go":
             case "move":
@@ -76,7 +87,6 @@ public class Parser
                 break;
             default:
                 System.out.println ("Invalid command");
-        
         }
         return cmd;
 
@@ -87,14 +97,38 @@ public class Parser
         System.out.println ("Moved: " +dir);
     }
     
-    public static void putDown(String item)
+    public static String[] putDown(String[] cmd)
     {
-        System.out.println ("Put down: " +item);
+        if(cmd.length >= 3)
+        {
+            cmd[1] = "";
+            for(int index = 2; index < cmd.length; index++)
+            {
+                cmd[1] += " " + cmd[index];
+            }
+            cmd[1] = cmd[1].trim();
+        }
+        else
+            System.out.println("You need to specify an item to put down.");
+        System.out.println ("Put down: " + cmd[1]);
+        return cmd;
     }
     
-    public static void pickUp(String item)
+    public static String[] pickUp(String[] cmd)
     {
-        System.out.println ("Picked Up: " +item);
+        if(cmd.length >= 3)
+        {
+            cmd[1] = "";
+            for(int index = 2; index < cmd.length; index++)
+            {
+                cmd[1] += " " + cmd[index];
+            }
+            cmd[1] = cmd[1].trim();
+        }
+        else
+            System.out.println("You need to specify an item to pick up.");
+        debug.debug("Picked Up: " + cmd[1]);
+        return cmd;
     }
     
     public static void checkSurrounding()

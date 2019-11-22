@@ -14,11 +14,10 @@ package betrayalatthetextonthescreen;
  */
 public class Debug 
 {
-    private final boolean DEBUG = false;
+    private final boolean DEBUG = true;
     
     Debug()
-    {    
-    }
+    {}
     
     public void debug(String message)
     {
