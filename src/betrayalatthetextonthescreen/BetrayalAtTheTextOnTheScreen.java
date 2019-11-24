@@ -77,6 +77,7 @@ public class BetrayalAtTheTextOnTheScreen
                     System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
                     break;
                 case "pick":
+                case "take":
                     if(rooms[player.getPlayerLocation()].ifRoomHasItem(userInputArray[1]))
                     {
                         if (player.canAddInventoryItem()) 
@@ -97,8 +98,20 @@ public class BetrayalAtTheTextOnTheScreen
                     break;
                 case "move":
                 case "go":
-                    player.setPlayerLocation(rooms[player.getPlayerLocation()].getDoor(Integer.parseInt(userInputArray[1])));
-                    System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
+                    try
+                    {
+                        if(rooms[player.getPlayerLocation()].ifDoorExists(Integer.parseInt(userInputArray[1]) - 1))
+                        {
+                            player.setPlayerLocation(rooms[player.getPlayerLocation()].getDoor(Integer.parseInt(userInputArray[1])));
+                            System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
+                        }
+                        else
+                            System.out.println("That is not a door.");
+                    }
+                    catch(NumberFormatException e)
+                    {
+                        System.out.println("Please specify the number of the door you would like to go through.");
+                    }
                     break;
                 default:
             }        

@@ -43,7 +43,7 @@ public class Parser
         input = temp.trim().replaceAll(" +", " ");
         //String cmd [] = temp.split(",");   
         String cmd [] = input.split(" ");
-        System.out.println ("Commands: " + Arrays.toString(cmd));    
+        debug.debug("Commands: " + Arrays.toString(cmd));    
         
         switch (cmd[0])
         {
@@ -59,6 +59,7 @@ public class Parser
             case "pick":
                 if(cmd[1].equals("up"))
                 {
+                    cmd[1] = "";
                     cmd = pickUp(cmd);
                 }
                 else
@@ -67,6 +68,7 @@ public class Parser
             case "put":
                 if(cmd[1].equals("down"))
                 {
+                    cmd[1] = "";
                     cmd = putDown(cmd);    
                 }
                 else
@@ -80,7 +82,13 @@ public class Parser
                 break;
             case "go":
             case "move":
-                moveDirection(cmd[1]);
+                if(cmd.length == 2)
+                    moveDirection(cmd[1]);
+                else
+                {
+                    System.out.println("Please specify where you want to go.");
+                    cmd[0] = "else";
+                }
                 break;
             case "quit":
                 System.out.println ("Thank you for Playing");
@@ -89,55 +97,58 @@ public class Parser
                 System.out.println ("Invalid command");
         }
         return cmd;
-
     }
     
     public static void moveDirection (String dir)
     {
-        System.out.println ("Moved: " +dir);
+        debug.debug("Moved: " + dir);
     }
     
     public static String[] putDown(String[] cmd)
     {
-        if(cmd.length >= 3)
+        if(cmd.length >= 2)
         {
-            cmd[1] = "";
             for(int index = 2; index < cmd.length; index++)
             {
                 cmd[1] += " " + cmd[index];
             }
             cmd[1] = cmd[1].trim();
+            debug.debug("Put down: " + cmd[1]);
         }
         else
+        {
             System.out.println("You need to specify an item to put down.");
-        System.out.println ("Put down: " + cmd[1]);
+            cmd[0] = "else";
+        }
         return cmd;
     }
     
     public static String[] pickUp(String[] cmd)
     {
-        if(cmd.length >= 3)
+        if(cmd.length >= 2)
         {
-            cmd[1] = "";
             for(int index = 2; index < cmd.length; index++)
             {
                 cmd[1] += " " + cmd[index];
             }
             cmd[1] = cmd[1].trim();
+            debug.debug("Picked Up: " + cmd[1]);
         }
         else
+        {
             System.out.println("You need to specify an item to pick up.");
-        debug.debug("Picked Up: " + cmd[1]);
+            cmd[0] = "else";
+        }
         return cmd;
     }
     
     public static void checkSurrounding()
     {
-        System.out.println ("Checked Surrounding");
+        debug.debug("Checked Surrounding");
     }
     
     public static void checkInventory ()
     {
-        System.out.println ("Checked Inventory");
+        debug.debug("Checked Inventory");
     }
 }

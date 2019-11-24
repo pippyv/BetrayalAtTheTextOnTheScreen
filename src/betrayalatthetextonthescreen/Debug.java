@@ -14,7 +14,7 @@ package betrayalatthetextonthescreen;
  */
 public class Debug 
 {
-    private final boolean DEBUG = true;
+    private final boolean DEBUG = false;
     
     Debug()
     {}
