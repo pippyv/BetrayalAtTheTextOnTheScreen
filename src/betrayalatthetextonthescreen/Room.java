@@ -156,9 +156,14 @@ public class Room
      */
     public boolean ifDoorExists(int door)
     {
-        if(this.doors[door] != NON_APPLICABLE)
-            return true;
-        else 
+        if(door < MAX_NUMBER_OF_DOORS)
+        {
+            if(this.doors[door] != NON_APPLICABLE)
+                return true;
+            else 
+                return false;
+        }
+        else
             return false;
     }
     
