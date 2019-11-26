@@ -28,15 +28,16 @@ public class Player {
     private int playerLocation;
     private Inventory playerInventory;
     private Debug debug;
+    private Map playerMap;
     
     /**
      * Player constructor<br>
      * Calls second player constructor with the default player name<br>
      */
     
-    Player()
+    Player(Map map)
     {
-        this(DEFAULT_PLAYER_NAME);
+        this(DEFAULT_PLAYER_NAME, map);
     }
     
     /**
@@ -46,12 +47,14 @@ public class Player {
      * @param name player name<br>
      */
     
-    Player (String name) 
+    Player (String name, Map map) 
     {
         playerName = name;
         playerLocation = 0;
         playerInventory = new Inventory(MAX_INVENTORY_SIZE);
         debug = new Debug();
+        playerMap = map;
+        playerMap.printMap(playerName);
     }
     
     public String getPlayerName()

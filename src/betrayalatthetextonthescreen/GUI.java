@@ -6,7 +6,7 @@ package betrayalatthetextonthescreen;
  *   borrowed heavily from:
  *    http://asimdlv.com/java-swing-auto-scrolling-jscrollpane-i-e-chat-window/
  * 
- * @author leev
+ * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 import java.awt.Dimension;
 import java.awt.FlowLayout;

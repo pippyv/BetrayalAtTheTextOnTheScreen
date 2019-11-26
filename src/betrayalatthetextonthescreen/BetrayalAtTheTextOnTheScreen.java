@@ -20,7 +20,7 @@ public class BetrayalAtTheTextOnTheScreen
 {
     final static int NUMBER_OF_ROOMS = 7;
     static Room[] rooms = new Room[NUMBER_OF_ROOMS];
-    static Player player;
+    static Player player, player2;
     static Debug debug;
     static List<String> roomNames = new ArrayList<String>(Arrays.asList("Kitchen", "Bathroom", "Main Hall", "Bedroom", "Living Room", "Study", "Observatory"));
     static List<String> roomDescs = new ArrayList<String>(Arrays.asList("Kitchen Description", "Bathroom Description", "Main Hall Description", "Bedroom Description", "Living Room Description", "Study Description", "Observatory Description"));
@@ -32,7 +32,9 @@ public class BetrayalAtTheTextOnTheScreen
     {
         debug = new Debug();
         buildMap();
-        player = new Player("Player 1");
+        Map map = new Map();
+        player = new Player("Player 1", map);
+        player2 = new Player("Player 2", map);
         player.addInventoryItem("no tea");
         playerGui.writeGUI(rooms[player.getPlayerLocation()].enterRoomDescription()); 
     }
