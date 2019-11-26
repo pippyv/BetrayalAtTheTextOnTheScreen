@@ -13,7 +13,6 @@ import java.util.Random;
  * Main Class<br>
  * <P>
  * ToDo: Move map builder into another file.<br>
- * ToDo: Move debugger into another file.<br>
  * ToDo: Move parser handler into another file.<br>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
@@ -34,7 +33,7 @@ public class BetrayalAtTheTextOnTheScreen
         buildMap();
         player = new Player("Player 1");
         player.addInventoryItem("no tea");
-        System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
+        System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription()); //Move to UI
         parse();
     }
     
@@ -57,7 +56,7 @@ public class BetrayalAtTheTextOnTheScreen
             switch (userInputArray[0])
             {
                 case "inventory":
-                    System.out.println(player.getPlayerInventory());
+                    System.out.println(player.getPlayerInventory()); //Move to UI
                     break;
                 case "drop":
                 case "put":
@@ -67,14 +66,14 @@ public class BetrayalAtTheTextOnTheScreen
                         player.removeInventoryItem(userInputArray[1]);
                         rooms[player.getPlayerLocation()].addInventoryItem(userInputArray[1]);
                         rooms[player.getPlayerLocation()].appendRoomDescription("There is a " + userInputArray[1] + " on the floor here.");
-                        System.out.println("You are no longer carrying " + userInputArray[1] + ".");
+                        System.out.println("You are no longer carrying " + userInputArray[1] + "."); //Move to UI
                     }
                     else
-                        System.out.println("You are not carrying " + userInputArray[1] + ".");
+                        System.out.println("You are not carrying " + userInputArray[1] + "."); //Move to UI
                     break;
                 case "look":
                 case "view":
-                    System.out.println(rooms[player.getPlayerLocation()].getRoomDescription());
+                    System.out.println(rooms[player.getPlayerLocation()].getRoomDescription()); //Move to UI
                     break;
                 case "pick":
                 case "take":
@@ -84,16 +83,16 @@ public class BetrayalAtTheTextOnTheScreen
                         {
                             player.addInventoryItem(userInputArray[1]);
                             rooms[player.getPlayerLocation()].removeInventoryItem(userInputArray[1]);
-                            System.out.println(userInputArray[1] + " has been added to your inventory.");
+                            System.out.println(userInputArray[1] + " has been added to your inventory."); //Move to UI
                         }
                         else
                         {
-                            System.out.println("You can't carry anything more.  You leave the " + userInputArray[1] + " where it is.");
+                            System.out.println("You can't carry anything more.  You leave the " + userInputArray[1] + " where it is."); //Move to UI
                         }    
                     }
                     else
                     {
-                        System.out.println("You don't see a " + userInputArray[1] + " here.");
+                        System.out.println("You don't see " + userInputArray[1] + " here."); //Move to UI
                     }
                     break;
                 case "move":
@@ -103,14 +102,14 @@ public class BetrayalAtTheTextOnTheScreen
                         if(rooms[player.getPlayerLocation()].ifDoorExists(Integer.parseInt(userInputArray[1]) - 1))
                         {
                             player.setPlayerLocation(rooms[player.getPlayerLocation()].getDoor(Integer.parseInt(userInputArray[1])));
-                            System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription());
+                            System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription()); //Move to UI
                         }
                         else
-                            System.out.println("That is not a door.");
+                            System.out.println("That is not a door."); //Move to UI
                     }
-                    catch(NumberFormatException e)
+                    catch(NumberFormatException exception)
                     {
-                        System.out.println("Please specify the number of the door you would like to go through.");
+                        System.out.println("Please specify the number of the door you would like to go through."); //Move to UI
                     }
                     break;
                 default:
