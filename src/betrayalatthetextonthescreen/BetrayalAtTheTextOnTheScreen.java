@@ -24,6 +24,7 @@ public class BetrayalAtTheTextOnTheScreen
     static Debug debug;
     static List<String> roomNames = new ArrayList<String>(Arrays.asList("Kitchen", "Bathroom", "Main Hall", "Bedroom", "Living Room", "Study", "Observatory"));
     static List<String> roomDescs = new ArrayList<String>(Arrays.asList("Kitchen Description", "Bathroom Description", "Main Hall Description", "Bedroom Description", "Living Room Description", "Study Description", "Observatory Description"));
+    static GUI playerGui = new GUI();
     /**
      * @param args the command line arguments
      */
@@ -33,8 +34,7 @@ public class BetrayalAtTheTextOnTheScreen
         buildMap();
         player = new Player("Player 1");
         player.addInventoryItem("no tea");
-        System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription()); //Move to UI
-        parse();
+        playerGui.writeGUI(rooms[player.getPlayerLocation()].enterRoomDescription()); 
     }
     
     /**
@@ -47,16 +47,14 @@ public class BetrayalAtTheTextOnTheScreen
      * Accept alternate methods of specifying door to move through.<br>
      * Move out of main and into another file.<br>
      */
-    static void parse()
+    static void parse(String[] userInputArray)
     {
-        Parser parser = new Parser();
-        String[] userInputArray = parser.parseInput();
-        while (!userInputArray[0].equals("quit")) 
+        if(!userInputArray[0].equals("quit"))
         {
             switch (userInputArray[0])
             {
                 case "inventory":
-                    System.out.println(player.getPlayerInventory()); //Move to UI
+                    playerGui.writeGUI(player.getPlayerInventory().toString());
                     break;
                 case "drop":
                 case "put":
@@ -66,14 +64,14 @@ public class BetrayalAtTheTextOnTheScreen
                         player.removeInventoryItem(userInputArray[1]);
                         rooms[player.getPlayerLocation()].addInventoryItem(userInputArray[1]);
                         rooms[player.getPlayerLocation()].appendRoomDescription("There is a " + userInputArray[1] + " on the floor here.");
-                        System.out.println("You are no longer carrying " + userInputArray[1] + "."); //Move to UI
+                        playerGui.writeGUI("You are no longer carrying " + userInputArray[1] + ".");
                     }
                     else
-                        System.out.println("You are not carrying " + userInputArray[1] + "."); //Move to UI
+                        playerGui.writeGUI("You are not carrying " + userInputArray[1] + ".");
                     break;
                 case "look":
                 case "view":
-                    System.out.println(rooms[player.getPlayerLocation()].getRoomDescription()); //Move to UI
+                    playerGui.writeGUI(rooms[player.getPlayerLocation()].getRoomDescription());
                     break;
                 case "pick":
                 case "take":
@@ -83,16 +81,16 @@ public class BetrayalAtTheTextOnTheScreen
                         {
                             player.addInventoryItem(userInputArray[1]);
                             rooms[player.getPlayerLocation()].removeInventoryItem(userInputArray[1]);
-                            System.out.println(userInputArray[1] + " has been added to your inventory."); //Move to UI
+                            playerGui.writeGUI(userInputArray[1] + " has been added to your inventory.");
                         }
                         else
                         {
-                            System.out.println("You can't carry anything more.  You leave the " + userInputArray[1] + " where it is."); //Move to UI
+                            playerGui.writeGUI("You can't carry anything more.  You leave the " + userInputArray[1] + " where it is.");
                         }    
                     }
                     else
                     {
-                        System.out.println("You don't see " + userInputArray[1] + " here."); //Move to UI
+                        playerGui.writeGUI("You don't see " + userInputArray[1] + " here.");
                     }
                     break;
                 case "move":
@@ -102,20 +100,20 @@ public class BetrayalAtTheTextOnTheScreen
                         if(rooms[player.getPlayerLocation()].ifDoorExists(Integer.parseInt(userInputArray[1]) - 1))
                         {
                             player.setPlayerLocation(rooms[player.getPlayerLocation()].getDoor(Integer.parseInt(userInputArray[1])));
-                            System.out.println(rooms[player.getPlayerLocation()].enterRoomDescription()); //Move to UI
+                            playerGui.writeGUI(rooms[player.getPlayerLocation()].enterRoomDescription()); 
                         }
                         else
-                            System.out.println("That is not a door."); //Move to UI
+                            playerGui.writeGUI("That is not a door.");
                     }
                     catch(NumberFormatException exception)
                     {
-                        System.out.println("Please specify the number of the door you would like to go through."); //Move to UI
+                        playerGui.writeGUI("Please specify the number of the door you would like to go through.");
                     }
                     break;
                 default:
             }        
             System.out.println();
-            userInputArray = parser.parseInput();
+            //userInputArray = parser.parseInput();
         }
     }
     

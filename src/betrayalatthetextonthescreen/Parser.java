@@ -30,13 +30,14 @@ public class Parser
      * 
      * @return command entered by user, including "quit" = quit game
      */
-    public String[] parseInput() {
-        String temp;
+    public String[] parseInput(String temp) 
+    {
+        //String temp;
         String input;
         
         System.out.println ("Please enter menu command, followed by object/direction");
                // + ", seperated by a comma");
-        temp = scan.nextLine();
+        //temp = scan.nextLine();
         temp = temp.toLowerCase();
              
         
