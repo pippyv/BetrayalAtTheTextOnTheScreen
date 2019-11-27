@@ -80,12 +80,12 @@ public class Room
     
     public int getDoor(int door)
     {
-        return this.doors[door - 1];
+        return this.doors[door];
     }
     
     public void setDoor(int door, int destination)
     {
-        this.doors[door - 1] = destination;
+        this.doors[door] = destination;
     }
     
     public Boolean getRoomVisited()
@@ -156,7 +156,7 @@ public class Room
      */
     public boolean ifDoorExists(int door)
     {
-        if(door < MAX_NUMBER_OF_DOORS)
+        if((door >= 0) && (door < MAX_NUMBER_OF_DOORS))
         {
             if(this.doors[door] != NON_APPLICABLE)
                 return true;

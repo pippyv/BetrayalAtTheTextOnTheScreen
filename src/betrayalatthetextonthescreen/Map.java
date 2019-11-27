@@ -67,14 +67,14 @@ public class Map
                 if(rand.nextBoolean())
                 {
                     debug.debug("Room " + index + "'s door one progresses.");
-                    rooms[index].setDoor(1, roomList.get(index));
-                    rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
+                    rooms[index].setDoor(0, roomList.get(index));
+                    rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
                 else
                 {
                     debug.debug("Room " + index + "'s door two progresses.");
-                    rooms[index].setDoor(2, roomList.get(index));
-                    rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
+                    rooms[index].setDoor(1, roomList.get(index));
+                    rooms[index].setDoor(0, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
             }
             else
@@ -86,21 +86,21 @@ public class Map
                 {
                     case 0:
                         debug.debug("Room " + index + "'s door one progresses.");
-                        rooms[index].setDoor(1, roomList.get(index));
+                        rooms[index].setDoor(0, roomList.get(index));
+                        rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
-                        rooms[index].setDoor(3, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 1:
                         debug.debug("Room " + index + "'s door two progresses.");
-                        rooms[index].setDoor(2, roomList.get(index));
-                        rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
-                        rooms[index].setDoor(3, rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        rooms[index].setDoor(1, roomList.get(index));
+                        rooms[index].setDoor(0, rand.nextInt(NUMBER_OF_ROOMS - 1));
+                        rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 2:
                         debug.debug("Room " + index + "'s door three progresses.");
-                        rooms[index].setDoor(3, roomList.get(index));
+                        rooms[index].setDoor(2, roomList.get(index));
+                        rooms[index].setDoor(0, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
-                        rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                 }
             }

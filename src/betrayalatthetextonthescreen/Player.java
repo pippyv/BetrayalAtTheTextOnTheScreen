@@ -230,9 +230,10 @@ public class Player {
                 case "go":
                     try
                     {
-                        if(playerMap.ifDoorExists(getPlayerLocation(), Integer.parseInt(userInputArray[1]) - 1))
+                        int doorNumber = Integer.parseInt(userInputArray[1]) - 1;
+                        if(playerMap.ifDoorExists(getPlayerLocation(), doorNumber))
                         {
-                            setPlayerLocation(playerMap.getDoor(getPlayerLocation(), Integer.parseInt(userInputArray[1])));
+                            setPlayerLocation(playerMap.getDoor(getPlayerLocation(), doorNumber));
                             playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation(), this.roomsVisited[this.playerLocation]));
                             setPlayerVisited();
                         }
