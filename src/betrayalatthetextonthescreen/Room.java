@@ -135,9 +135,9 @@ public class Room
      * Otherwise marks the room as visited and returns the full room description.<br>
      * @return String - Description to be printed upon entering the room.
      */
-    public String enterRoomDescription()
+    public String enterRoomDescription(boolean visited)
     {
-        if (this.roomVisited) 
+        if (visited) 
         {
             return "You are in the " + this.roomName;
         }

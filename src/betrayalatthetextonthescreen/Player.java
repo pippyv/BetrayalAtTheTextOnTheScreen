@@ -30,6 +30,7 @@ public class Player {
     private Debug debug;
     private Map playerMap;
     private GUI playerGui;
+    private boolean[] roomsVisited;
     
     /**
      * Player constructor<br>
@@ -56,7 +57,13 @@ public class Player {
         debug = new Debug();
         playerMap = map;
         playerGui = new GUI(this, playerName);
-        playerGui.writeGUI(map.enterRoomDescription(playerLocation)); 
+        playerGui.writeGUI(map.enterRoomDescription(playerLocation, false));
+        roomsVisited = new boolean[map.getNumberOfRooms()];
+        for(boolean visited : roomsVisited)
+        {
+            visited = false;
+        }
+        this.setPlayerVisited();
     }
     
     public String getPlayerName()
@@ -88,6 +95,16 @@ public class Player {
     {
         this.playerInventory.clearInventory();
         this.playerInventory.setInventory(items);
+    }
+    
+    public boolean getPlayerVisited()
+    {
+        return this.roomsVisited[this.playerLocation];
+    }
+    
+    public void setPlayerVisited()
+    {
+        this.roomsVisited[playerLocation] = true;
     }
     
     /**
@@ -216,7 +233,8 @@ public class Player {
                         if(playerMap.ifDoorExists(getPlayerLocation(), Integer.parseInt(userInputArray[1]) - 1))
                         {
                             setPlayerLocation(playerMap.getDoor(getPlayerLocation(), Integer.parseInt(userInputArray[1])));
-                            playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation())); 
+                            playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation(), this.roomsVisited[this.playerLocation]));
+                            setPlayerVisited();
                         }
                         else
                             playerGui.writeGUI("That is not a door.");

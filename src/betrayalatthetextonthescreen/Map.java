@@ -142,9 +142,14 @@ public class Map
         return rooms[playerLocation].getDoor(door);
     }
     
-    public static String enterRoomDescription(int playerLocation)
+    public static String enterRoomDescription(int playerLocation, boolean visited)
     {
-        return rooms[playerLocation].enterRoomDescription();
+        return rooms[playerLocation].enterRoomDescription(visited);
+    }
+    
+    public static int getNumberOfRooms()
+    {
+        return NUMBER_OF_ROOMS;
     }
     
 }
