@@ -28,8 +28,8 @@ public class GUI extends JFrame{
     private Parser parser = new Parser();
     private final JTextArea textArea = new JTextArea(NUM_COLUMNS, NUM_ROWS);
     
-    public GUI() {
-	super("Text Adventure Game");
+    public GUI(Player player, String name) {
+	super("Text Adventure Game " + name);
 	// We create a TextArea object
 
 	// We put the TextArea object in a Scrollable Pane
@@ -79,7 +79,7 @@ public class GUI extends JFrame{
 
                     // ToDo call application code from here
                         String[] userInputArray = parser.parseInput(fromUser);
-                        BetrayalAtTheTextOnTheScreen.parse(userInputArray);
+                        player.parse(userInputArray);
                     }
                 }
             }

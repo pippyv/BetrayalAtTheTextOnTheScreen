@@ -29,6 +29,7 @@ public class Player {
     private Inventory playerInventory;
     private Debug debug;
     private Map playerMap;
+    private GUI playerGui;
     
     /**
      * Player constructor<br>
@@ -54,6 +55,8 @@ public class Player {
         playerInventory = new Inventory(MAX_INVENTORY_SIZE);
         debug = new Debug();
         playerMap = map;
+        playerGui = new GUI(this, playerName);
+        playerGui.writeGUI(map.enterRoomDescription(playerLocation)); 
     }
     
     public String getPlayerName()
@@ -149,6 +152,85 @@ public class Player {
     public boolean canRemoveInventoryItem(String item)
     {
         return this.playerInventory.ifHasItem(item);
+    }
+    
+    /**
+     * Parse Method<br>
+     * Initializes instance of the parser class.<br>
+     * Saves user input processed by the parser and responds accordingly.<br> 
+     * <P>
+     * TODO:<br>
+     * Exception for if door number is incorrect to prevent crash.<br>
+     * Accept alternate methods of specifying door to move through.<br>
+     * Move out of main and into another file.<br>
+     */
+    void parse(String[] userInputArray)
+    {
+        if(!userInputArray[0].equals("quit"))
+        {
+            switch (userInputArray[0])
+            {
+                case "inventory":
+                    playerGui.writeGUI(getPlayerInventory().toString());
+                    break;
+                case "drop":
+                case "put":
+                    debug.debug(userInputArray[1]);
+                    if(canRemoveInventoryItem(userInputArray[1]))
+                    {
+                        removeInventoryItem(userInputArray[1]);
+                        playerMap.putDown(getPlayerLocation(), userInputArray[1]);
+                        playerGui.writeGUI("You are no longer carrying " + userInputArray[1] + ".");
+                    }
+                    else
+                        playerGui.writeGUI("You are not carrying " + userInputArray[1] + ".");
+                    break;
+                case "look":
+                case "view":
+                    playerGui.writeGUI(playerMap.look(getPlayerLocation()));
+                    break;
+                case "pick":
+                case "take":
+                    if(playerMap.ifRoomHasItem(getPlayerLocation(), userInputArray[1]))
+                    {
+                        if (canAddInventoryItem()) 
+                        {
+                            addInventoryItem(userInputArray[1]);
+                            playerMap.removeInventoryItem(getPlayerLocation(), userInputArray[1]);
+                            playerGui.writeGUI(userInputArray[1] + " has been added to your inventory.");
+                        }
+                        else
+                        {
+                            playerGui.writeGUI("You can't carry anything more.  You leave the " + userInputArray[1] + " where it is.");
+                        }    
+                    }
+                    else
+                    {
+                        playerGui.writeGUI("You don't see " + userInputArray[1] + " here.");
+                    }
+                    break;
+                case "move":
+                case "go":
+                    try
+                    {
+                        if(playerMap.ifDoorExists(getPlayerLocation(), Integer.parseInt(userInputArray[1]) - 1))
+                        {
+                            setPlayerLocation(playerMap.getDoor(getPlayerLocation(), Integer.parseInt(userInputArray[1])));
+                            playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation())); 
+                        }
+                        else
+                            playerGui.writeGUI("That is not a door.");
+                    }
+                    catch(NumberFormatException exception)
+                    {
+                        playerGui.writeGUI("Please specify the number of the door you would like to go through.");
+                    }
+                    break;
+                default:
+            }        
+            System.out.println();
+            //userInputArray = parser.parseInput();
+        }
     }
     
     /**
