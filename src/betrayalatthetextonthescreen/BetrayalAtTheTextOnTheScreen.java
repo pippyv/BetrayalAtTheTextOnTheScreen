@@ -7,14 +7,13 @@ package betrayalatthetextonthescreen;
 
 /**
  * Main Class<br>
+ * 
  * <P>
- * ToDo: Move map builder into another file.<br>
- * ToDo: Move parser handler into another file.<br>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class BetrayalAtTheTextOnTheScreen 
 {
-    static Player player, player2;
+    static Player player1, player2;
     static Debug debug;
     static Map map;
     /**
@@ -24,9 +23,9 @@ public class BetrayalAtTheTextOnTheScreen
     {
         debug = new Debug();
         map = new Map();
-        player = new Player("Player 1", map);
+        player1 = new Player("Player 1", map);
         player2 = new Player("Player 2", map);
-        player.addInventoryItem("no tea");
+        player1.addInventoryItem("no tea");
         
     }
 }
