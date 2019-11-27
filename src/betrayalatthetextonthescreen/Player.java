@@ -54,7 +54,6 @@ public class Player {
         playerInventory = new Inventory(MAX_INVENTORY_SIZE);
         debug = new Debug();
         playerMap = map;
-        playerMap.printMap(playerName);
     }
     
     public String getPlayerName()
