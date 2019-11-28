@@ -130,10 +130,11 @@ public class Room
     
     /**
      * Enter Room Description Method<br>
-     * Checks to see if the room the player is entering has been visited before.<br>
-     * If so, returns a String to tell the player what room they are in.<br> 
-     * Otherwise marks the room as visited and returns the full room description.<br>
-     * @return String - Description to be printed upon entering the room.
+     * Returns a description of the room the player is entering.<br>
+     * If player has been in room before returns a short description, else long description.<br>
+     * Otherwise returns the full room description.<br>
+     * @param visited boolean value of whether or not the player has entered this room before.<br>
+     * @return String - Description to be printed upon entering the room.<br>
      */
     public String enterRoomDescription(boolean visited)
     {
@@ -143,7 +144,6 @@ public class Room
         }
         else
         {
-            this.roomVisited = true;
             return this.roomDescription;
         }
     }
@@ -264,6 +264,6 @@ public class Room
         }
         returnString += this.roomInventory;
         returnString += "\n";
-       return returnString;
+        return returnString;
     }
 }

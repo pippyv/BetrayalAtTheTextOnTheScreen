@@ -25,8 +25,6 @@ public class Parser
      * reads next line
      * parses the command
      * TODO<br>
-     * Get rid of comma reliance
-     * Trim Strings before sending them to other classes
      * 
      * @return command entered by user, including "quit" = quit game
      */

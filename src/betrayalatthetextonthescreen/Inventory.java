@@ -10,7 +10,8 @@ import java.util.List;
 
 /**
  * Inventory Class - instantiated for each room and player.<br>
- * Constructor initializes an empty player inventory.<br>
+ * Constructor initializes an empty inventory of specified max size 
+ * (or no max size if none given).<br>
  * <P>
  * Instance variables: inventory, max inventory size, and debug
  * Methods: get/set/clear inventory, can add/add/remove inventory item,
@@ -26,11 +27,20 @@ public class Inventory
     private List<String> inventory;
     private Debug debug;
     
+    /**
+     * Inventory constructor<br>
+     * Calls second inventory constructor with no max inventory size<br>
+     */
     Inventory()
     {
         this(NON_APPLICABLE);
     }
     
+    /**
+     * Inventory constructor<br>
+     * Initializes inventory with specified max inventory size and debug<br>
+     * @param max 
+     */
     Inventory(int max)
     {
         inventory = new ArrayList<String>();

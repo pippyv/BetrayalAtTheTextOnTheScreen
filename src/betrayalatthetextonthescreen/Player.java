@@ -9,12 +9,13 @@ import java.util.List;
  * Player Class - instantiated for each player (currently 1 player).<br>
  * Constructor initializes player name (if no name is specified, should default 
  * to DEFAULT_PLAYER_NAME), current player location (defaulted to room number 0), 
- * and player inventory.<br>
+ * gui, rooms visited array, and player inventory.<br>
  * <P>
- * Instance variables: player name, current player location, player inventory, and debug<br>
+ * Instance variables: player name, current player location, player inventory,
+ * pointer to map, player gui, rooms visited array, and debug<br>
  * Methods: get/set player name, get/set player location, get/set/clear player inventory, 
- * get player inventory index, can add/add/remove/can remove inventory item, 
- * and to string.<br>
+ * get/set player visited, get player inventory index, can add/add/remove/can remove inventory item, 
+ * parse, and to string.<br>
  * <P>
  * ToDo:<br>
  *
@@ -44,8 +45,11 @@ public class Player {
     
     /**
      * Player constructor<br>
-     * Initializes player name and inventory<br>
+     * Initializes player name, gui, room visited array. and debug<br>
      * Initializes player location to 0<br>
+     * Initializes empty player inventory with specified max size<br>
+     * Saves pointer to the map<br>
+     * Prints initial room description and sets the starting room to visited<br>
      * @param name player name<br>
      */
     
@@ -173,13 +177,10 @@ public class Player {
     
     /**
      * Parse Method<br>
-     * Initializes instance of the parser class.<br>
      * Saves user input processed by the parser and responds accordingly.<br> 
      * <P>
      * TODO:<br>
-     * Exception for if door number is incorrect to prevent crash.<br>
      * Accept alternate methods of specifying door to move through.<br>
-     * Move out of main and into another file.<br>
      */
     void parse(String[] userInputArray)
     {
@@ -262,7 +263,12 @@ public class Player {
         String returnString = "";
         returnString += "Name: " + this.playerName;
         returnString += "/tLocation: " + this.playerLocation + "/n";
-        returnString += this.playerInventory;
+        returnString += this.playerInventory + "/n";
+        for(int index = 0; index < this.roomsVisited.length; index++)
+        {
+            returnString += index + ": " + roomsVisited[index] + "/t";
+        }
+        returnString += "/n";
         return returnString;
     }
     // other methods to follow
