@@ -262,13 +262,13 @@ public class Player {
     {
         String returnString = "";
         returnString += "Name: " + this.playerName;
-        returnString += "/tLocation: " + this.playerLocation + "/n";
-        returnString += this.playerInventory + "/n";
+        returnString += "\tLocation: " + this.playerLocation + "\n";
+        returnString += this.playerInventory + "\n";
         for(int index = 0; index < this.roomsVisited.length; index++)
         {
-            returnString += index + ": " + roomsVisited[index] + "/t";
+            returnString += index + ": " + roomsVisited[index] + "\t";
         }
-        returnString += "/n";
+        returnString += "\n";
         return returnString;
     }
     // other methods to follow

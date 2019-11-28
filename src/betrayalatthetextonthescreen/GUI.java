@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class GUI extends JFrame{
-    private final int NUM_ROWS = 30;
+    private final int NUM_ROWS = 15;
     private final int NUM_COLUMNS = 60;
     private final Dimension WINDOW_SIZE = new Dimension(500, 300);
     private final int WINDOW_XSIZE = 600;
@@ -69,7 +69,7 @@ public class GUI extends JFrame{
 
                     if (fromUser != null) {
                         //We append the text from the user
-                        textArea.append("Command: " + fromUser + "\n");
+                        textArea.append("\n" + fromUser + "\n");
 
                         //The pane auto-scrolls with each new response added
                         textArea.setCaretPosition(textArea.getDocument().getLength());
