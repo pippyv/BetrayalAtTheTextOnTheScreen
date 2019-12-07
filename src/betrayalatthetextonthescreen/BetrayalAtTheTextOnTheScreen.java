@@ -24,8 +24,9 @@ public class BetrayalAtTheTextOnTheScreen
         debug = new Debug();
         map = new Map();
         player1 = new Player("Player 1", map);
-        player2 = new Player("Player 2", map);
+        //player2 = new Player("Player 2", map);
         player1.addInventoryItem("no tea");
+        
         
     }
 }

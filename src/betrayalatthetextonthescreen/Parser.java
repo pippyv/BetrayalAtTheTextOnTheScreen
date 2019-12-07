@@ -11,12 +11,14 @@ public class Parser
     private final String action [] = {"pick up", "put down", "drop", "go", "move",
                 "open", "look", "view", "check inventory", "inventory", "quit"};
     Scanner scan;
+    GUI gui;
     private static Debug debug;
     
-    Parser()
+    Parser(GUI inputGui)
     {
         scan = new Scanner(System.in);
         debug = new Debug();
+        gui = inputGui;
     }
     
     
@@ -30,25 +32,16 @@ public class Parser
      */
     public String[] parseInput(String temp) 
     {
-        //String temp;
         String input;
-        
-        System.out.println ("Please enter menu command, followed by object/direction");
-               // + ", seperated by a comma");
-        //temp = scan.nextLine();
+        //gui.writeGUI("What would you like to do?");
         temp = temp.toLowerCase();
-             
-        
         input = temp.trim().replaceAll(" +", " ");
-        //String cmd [] = temp.split(",");   
         String cmd [] = input.split(" ");
         debug.debug("Commands: " + Arrays.toString(cmd));    
         
         switch (cmd[0])
         {
             case "inventory":
-            case "open": 
-            case "check":
                 checkInventory();
                 break;
             case "view":
@@ -62,7 +55,7 @@ public class Parser
                     cmd = pickUp(cmd);
                 }
                 else
-                    System.out.println("Invalid command.");
+                    gui.writeGUI("Invalid command.");
                 break;
             case "put":
                 if(cmd[1].equals("down"))
@@ -71,7 +64,7 @@ public class Parser
                     cmd = putDown(cmd);    
                 }
                 else
-                    System.out.println("Invalid command.");
+                    gui.writeGUI("Invalid command.");
                 break;
             case "drop":
                 cmd = putDown(cmd);
@@ -85,25 +78,37 @@ public class Parser
                     moveDirection(cmd[1]);
                 else
                 {
-                    System.out.println("Please specify where you want to go.");
+                    gui.writeGUI("Please specify where you want to go.");
                     cmd[0] = "else";
                 }
                 break;
             case "quit":
-                System.out.println ("Thank you for Playing");
+                gui.writeGUI("Thank you for Playing");
+                break;
+            case "sit":
+                break;
+            case "open":
+            case "check":
+                if ("inventory".equals(cmd[1]))
+                {
+                    for (int index = 1; index < cmd.length; index++) 
+                    {
+                        cmd[index-1] = cmd[1];
+                    }
+                }
                 break;
             default:
-                System.out.println ("Invalid command");
+                gui.writeGUI("Invalid command");
         }
         return cmd;
     }
     
-    public static void moveDirection (String dir)
+    public void moveDirection (String dir)
     {
         debug.debug("Moved: " + dir);
     }
     
-    public static String[] putDown(String[] cmd)
+    public String[] putDown(String[] cmd)
     {
         if(cmd.length >= 2)
         {
@@ -116,13 +121,13 @@ public class Parser
         }
         else
         {
-            System.out.println("You need to specify an item to put down.");
+            gui.writeGUI("You need to specify an item to put down.");
             cmd[0] = "else";
         }
         return cmd;
     }
     
-    public static String[] pickUp(String[] cmd)
+    public String[] pickUp(String[] cmd)
     {
         if(cmd.length >= 2)
         {
@@ -135,18 +140,18 @@ public class Parser
         }
         else
         {
-            System.out.println("You need to specify an item to pick up.");
+            gui.writeGUI("You need to specify an item to pick up.");
             cmd[0] = "else";
         }
         return cmd;
     }
     
-    public static void checkSurrounding()
+    public void checkSurrounding()
     {
         debug.debug("Checked Surrounding");
     }
     
-    public static void checkInventory ()
+    public void checkInventory ()
     {
         debug.debug("Checked Inventory");
     }

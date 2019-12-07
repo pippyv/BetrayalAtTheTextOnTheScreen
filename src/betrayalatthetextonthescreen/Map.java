@@ -24,8 +24,80 @@ public class Map
 {
     private final static int NUMBER_OF_ROOMS = 7;
     public static Room[] rooms = new Room[NUMBER_OF_ROOMS];
-    private static List<String> roomNames = new ArrayList<String>(Arrays.asList("Kitchen", "Bathroom", "Main Hall", "Bedroom", "Living Room", "Study", "Observatory"));
-    private static List<String> roomDescs = new ArrayList<String>(Arrays.asList("Kitchen Description", "Bathroom Description", "Main Hall Description", "Bedroom Description", "Living Room Description", "Study Description", "Observatory Description"));
+    private static List<String> roomNames = new ArrayList<String>(Arrays.asList(
+                "Kitchen",          //1
+                "Powder Room",      //2
+                "Main Hall",        //3
+                "Guest Bedroom",    //4
+                "Living Room",      //5
+                "Study",            //6
+                "Observatory",      //7
+                "Ballroom",         //8
+                "Dining Room",      //9
+                "Billiard Room",    //10
+                "Library",          //11
+                "Den",              //12
+                "Theater",          //13
+                "Balcony"));        //14
+    private static List<String> roomDescs = new ArrayList<String>(Arrays.asList(
+                "You are standing in a spacious kitchen.\n"
+                        + "The tiled floor is uncomfortably new, gleamingly shiny,"
+                        + " and accentuates the almost antique appliances that litter the room."
+                        + "  Most likely none of them work anymore.\n"
+                        + "The counters are empty but covered with a thick layer of dust.\n"
+                        + "A rank stench is wafting aggressively out of the looming refrigerator.",  //Kitchen Description
+                "You are in a small powder room.\n"
+                        + "The walls are papered a pealing, sickly pink that "
+                        + "threatens to pull you in and swallow you.\n"
+                        + "The toilet and sink are dingy and yellowed but reak of bleach.", //Bathroom Description
+                "You find yourself in the remnants of a once grand main hall.\n"
+                        + "The ceilings are remarkably high and a balcony from "
+                        + "an upper floor peers down from above.",    //Main Hall Description
+                "You are standing in a small guest bedroom.\n"
+                        + "There is a worn four-poster bed in the center of the "
+                        + "small room with immaculate hospital corners.",  //Guest Bedroom Description
+                "You are in a formerly well-kept living room.\n"
+                        + "There are two well-worn couches and a partially torn armchair"
+                        + " arranged around a fileplace that is spilling ash and dust "
+                        + "onto the rug.\n"
+                        + "In the back corner there is a rocking chair facing an empty wall.\n"
+                        + "The rocking chair is rocking slowly.",  //Living Room Description
+                "You find yourself standing in a small study.\n"
+                        + "There is a small wooden desk chair pushed under a simple writing desk.\n"
+                        + "The papers on the desk look old enough to crumble in your hands.",    //Study Description
+                "You are standing in a small observatory.\n"
+                        + "Part of the roof is open with telescopes and other equipment "
+                        + "sitting in the open air beneath the hole.\n"
+                        + "The equipment all seems to have been rained on.",  //Observatory Description
+                "You are in a large ballroom.\n"
+                        + "The floor is dusty but in decent shape and makes a satisfying"
+                        + " tap under your shoes.\n"
+                        + "The room is almost empty save for a black painted grand piano"
+                        + " against a far wall.\n"
+                        + "A chandelier hangs dauntingly above you.",     //Ballroom Description
+                "You find yourself in a traditional dining room.\n"
+                        + "A decent-sized dining table sits in the middle of the room "
+                        + "surrounded by old, ornate dining chairs.\n"
+                        + "A metal chandelier hangs over the center of the table where"
+                        + " there is a bowl of rotting fruit.",  //Dining Room Description
+                "You are standing in a heavily carpeted billiard room.\n"
+                        + "There is a bulky billiard table in the center of the room.\n"
+                        + "Several pool cues in various amounts of distress "
+                        + "are stacked against a wall.",    //Billiard Room Description
+                "You are in an old, private library.\n"
+                        + "The walls are lined with thousands of musty books from "
+                        + "floor to ceiling in a myriad of colors that are all somehow"
+                        + "similar to grey.\n"
+                        + "The room smells like old books.  And maybe kerosene.",  //Library Description
+                "You find yourself in a once cozy den.\n"
+                        + "There are several sunken couches around a small coffee "
+                        + "table covered in barely legible coffee table books.",  //Den Description
+                "You are standing in a dusty home theater.\n"
+                        + "Several couches and other various seating options are arranged"
+                        + " facing a dingy and yellowed sheet that hangs from the ceiling.\n"
+                        + "An old projector is setup against the back wall.  Chances of it working are slim.",  //Theater Description
+                "You are on a thin balcony overlooking the house's main hall.\n"
+                        + "Funny.  You don't remember climbing any stairs"));    //Balcony Description
     private static Debug debug;
     
     /**
@@ -132,6 +204,11 @@ public class Map
     {
         rooms[playerLocation].addInventoryItem(item);
         rooms[playerLocation].appendRoomDescription("There is a " + item + " on the floor here.");
+    }
+    
+    public String getRoomName(int playerLocation)
+    {
+        return rooms[playerLocation].getRoomName();
     }
     
     /**

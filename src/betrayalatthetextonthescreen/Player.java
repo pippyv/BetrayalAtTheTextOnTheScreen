@@ -246,9 +246,29 @@ public class Player {
                         playerGui.writeGUI("Please specify the number of the door you would like to go through.");
                     }
                     break;
+                case "sit":
+                    playerGui.writeGUI("Sitting doesn't sound like the best use of your time.");
+                case "open":
+                    switch(userInputArray[1])
+                    {
+                        case "refrigerator":
+                        case "fridge":
+                            if("Kitchen".equals(playerMap.getRoomName(playerLocation)))
+                            {
+                                playerGui.writeGUI("That might not be the best idea.  You never know what is in a refrigerator.");
+                            }   
+                            else
+                            {
+                                playerGui.writeGUI("You don't see a refrigerator here.");
+                            }
+                            break;
+                        default:
+                            playerGui.writeGUI("I don't know how you open that.");
+                            break;
+                    }
                 default:
-            }        
-            System.out.println();
+            }
+            playerGui.writeGUI("\nWhat would you like to do?");
             //userInputArray = parser.parseInput();
         }
     }

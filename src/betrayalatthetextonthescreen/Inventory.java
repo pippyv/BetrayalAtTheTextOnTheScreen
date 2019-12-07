@@ -161,7 +161,7 @@ public class Inventory
      */
     public String toString()
     {
-        String returnString = "Inventory contains:";
+        String returnString = "Inventory contains:\n";
         for(String item : this.inventory)
             returnString += "\n" + item;
         return returnString;
