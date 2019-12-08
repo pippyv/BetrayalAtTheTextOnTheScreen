@@ -1,11 +1,17 @@
-
 package betrayalatthetextonthescreen;
 
 /**
- * Java swing text window
- *   borrowed heavily from:
- *    http://asimdlv.com/java-swing-auto-scrolling-jscrollpane-i-e-chat-window/
- * 
+ * GUI Class - instantiated for each player (currently 1 player).<br>
+ * Constructor initializes JFrame with a scollable text area for output, an editable
+ * text field for input from the user, an action listener to accept input, and a parser.<br>
+ * <P>
+ * Java swing text window made with help from: <br>
+ * http://asimdlv.com/java-swing-auto-scrolling-jscrollpane-i-e-chat-window/<br>
+ * <P>
+ * Instance variables: number of rows and collumns for text area sizing, window size dimensions
+ * for window, text area, and parser.<br>
+ * Methods: write GUI.<br>
+ * <P>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 import java.awt.Dimension;
@@ -62,6 +68,11 @@ public class GUI extends JFrame{
         this.setVisible(true);
     }
     
+    /**
+     * Write GUI Method<br>
+     * Writes the specified message into the output text area on a new line.<br>
+     * @param message String message to be printed.<br>
+     */
     public void writeGUI(String message)
     {
         textArea.append(message + "\n");

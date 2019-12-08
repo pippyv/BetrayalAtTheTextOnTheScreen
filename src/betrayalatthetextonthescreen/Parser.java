@@ -1,39 +1,39 @@
 
 package betrayalatthetextonthescreen;
 import java.util.Arrays;
-import java.util.Scanner;
 /**
- *
+ * Parser Class - instantiated for each GUI (currently 1 GUI).<br>
+ * Constructor initializes a debug and saves a pointer to the associated GUI.<br>
+ * <P>
+ * Instance variables: pointer to GUI and debug<br>
+ * Methods: parse input, pick up, put down, check inventory, check surrounding<br>
+ * <P>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class Parser 
 {
     private final String action [] = {"pick up", "put down", "drop", "go", "move",
                 "open", "look", "view", "check inventory", "inventory", "quit"};
-    Scanner scan;
     GUI gui;
     private static Debug debug;
     
     Parser(GUI inputGui)
     {
-        scan = new Scanner(System.in);
         debug = new Debug();
         gui = inputGui;
     }
     
     
     /**
-     * parseInput prints prompt on standard output (ie console)
-     * reads next line
-     * parses the command
-     * TODO<br>
-     * 
-     * @return command entered by user, including "quit" = quit game
+     * Parse Input Method<br>
+     * Takes input from the GUI and splits it into commands that can be handled elsewhere.<br>
+     * Prints error messages to GUI under certain circumstances.<br>
+     * @param temp String to be parsed<br>
+     * @return String Array - Array of individual commands as Strings<br>
      */
     public String[] parseInput(String temp) 
     {
         String input;
-        //gui.writeGUI("What would you like to do?");
         temp = temp.toLowerCase();
         input = temp.trim().replaceAll(" +", " ");
         String cmd [] = input.split(" ");
@@ -74,8 +74,18 @@ public class Parser
                 break;
             case "go":
             case "move":
-                if(cmd.length == 2)
-                    moveDirection(cmd[1]);
+                if(cmd.length > 3)
+                {
+                    gui.writeGUI("That's too many words for me to understand.");
+                    cmd[0] = "else";
+                }
+                else if (cmd.length > 2)
+                {
+                    if(cmd[1].equals("door"))
+                    {
+                        cmd[1] = cmd[2];
+                    }
+                }
                 else
                 {
                     gui.writeGUI("Please specify where you want to go.");
@@ -103,11 +113,12 @@ public class Parser
         return cmd;
     }
     
-    public void moveDirection (String dir)
-    {
-        debug.debug("Moved: " + dir);
-    }
-    
+    /**
+     * Put Down Method<br>
+     * Condenses all words after the command "put down" into one string to account for multi word item names.<br>
+     * @param cmd String Array of command followed by other words input from user<br>
+     * @return String Array - Command followed by item name<br>
+     */
     public String[] putDown(String[] cmd)
     {
         if(cmd.length >= 2)
@@ -127,6 +138,12 @@ public class Parser
         return cmd;
     }
     
+    /**
+     * Pick Up Method<br>
+     * Condenses all words after the command "pick up" into one string to account for multi word item names.<br>
+     * @param cmd String Array of command followed by other words input from user<br>
+     * @return String Array - Command followed by item name<br>
+     */
     public String[] pickUp(String[] cmd)
     {
         if(cmd.length >= 2)
@@ -146,11 +163,19 @@ public class Parser
         return cmd;
     }
     
+    /**
+     * Check Surrounding Method<br>
+     * Prints message to debug that the player has checked their surroundings.<br>
+     */
     public void checkSurrounding()
     {
         debug.debug("Checked Surrounding");
     }
     
+    /**
+     * Check Surrounding Method<br>
+     * Prints message to debug that the player has checked their inventory.<br>
+     */
     public void checkInventory ()
     {
         debug.debug("Checked Inventory");

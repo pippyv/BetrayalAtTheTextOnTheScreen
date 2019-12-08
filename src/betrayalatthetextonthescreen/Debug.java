@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package betrayalatthetextonthescreen;
 
 /**
@@ -16,9 +11,18 @@ public class Debug
 {
     private final boolean DEBUG = true;
     
+    /**
+     * Constructor<br>
+     * Initializes debug instance.<br>
+     */
     Debug()
     {}
     
+    /**
+     * Debug Method<br>
+     * Prints specified message to the console if debugging is turned on.<br>
+     * @param message String to be printed<br>
+     */
     public void debug(String message)
     {
         if(DEBUG)

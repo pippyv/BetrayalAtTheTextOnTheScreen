@@ -1,4 +1,3 @@
-
 package betrayalatthetextonthescreen;
 
 import java.util.ArrayList;
@@ -62,6 +61,7 @@ public class Player {
         playerMap = map;
         playerGui = new GUI(this, playerName);
         playerGui.writeGUI(map.enterRoomDescription(playerLocation, false));
+        playerGui.writeGUI("\nWhat would you like to do?");
         roomsVisited = new boolean[map.getNumberOfRooms()];
         for(boolean visited : roomsVisited)
         {
@@ -234,16 +234,75 @@ public class Player {
                         int doorNumber = Integer.parseInt(userInputArray[1]) - 1;
                         if(playerMap.ifDoorExists(getPlayerLocation(), doorNumber))
                         {
+                            switch(doorNumber)
+                            {
+                                case 0:
+                                    playerGui.writeGUI("You move through the left most door.");
+                                    break;
+                                case 1:
+                                    if(playerMap.getNumberOfDoors(getPlayerLocation()) == 2)
+                                    {
+                                        playerGui.writeGUI("You move through the right most door.");
+                                    }
+                                    else
+                                    {
+                                        playerGui.writeGUI("You move through the central door.");
+                                    }
+                                    break;
+                                case 2:
+                                    playerGui.writeGUI("You move through the right most door.");
+                            }
                             setPlayerLocation(playerMap.getDoor(getPlayerLocation(), doorNumber));
                             playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation(), this.roomsVisited[this.playerLocation]));
                             setPlayerVisited();
                         }
                         else
-                            playerGui.writeGUI("That is not a door.");
+                            playerGui.writeGUI("There are not that many doors here.");
                     }
                     catch(NumberFormatException exception)
                     {
-                        playerGui.writeGUI("Please specify the number of the door you would like to go through.");
+                        switch(userInputArray[1])
+                        {
+                            case "left":
+                                setPlayerLocation(playerMap.getDoor(getPlayerLocation(), 0));
+                                playerGui.writeGUI("You move through the left most door.");
+                                playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation(), this.roomsVisited[this.playerLocation]));
+                                setPlayerVisited();
+                                break;
+                            case "right":
+                                if(playerMap.getNumberOfDoors(getPlayerLocation()) == 2)
+                                {
+                                    setPlayerLocation(playerMap.getDoor(getPlayerLocation(), 1));
+                                    playerGui.writeGUI("You move through the right most door.");
+                                    playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation(), this.roomsVisited[this.playerLocation]));
+                                    setPlayerVisited();
+                                }
+                                else if(playerMap.getNumberOfDoors(getPlayerLocation()) == 3)
+                                {
+                                    setPlayerLocation(playerMap.getDoor(getPlayerLocation(), 2));
+                                    playerGui.writeGUI("You move through the right most door.");
+                                    playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation(), this.roomsVisited[this.playerLocation]));
+                                    setPlayerVisited();
+                                }
+                                break;
+                            case "middle":
+                            case "center":
+                            case "central":
+                                if(playerMap.getNumberOfDoors(getPlayerLocation()) == 2)
+                                {
+                                    playerGui.writeGUI("I don't understand.  There is not a central door here.");
+                                }
+                                else if(playerMap.getNumberOfDoors(getPlayerLocation()) == 3)
+                                {
+                                    setPlayerLocation(playerMap.getDoor(getPlayerLocation(), 1));
+                                    playerGui.writeGUI("You move through the central door.");
+                                    playerGui.writeGUI(playerMap.enterRoomDescription(getPlayerLocation(), this.roomsVisited[this.playerLocation]));
+                                    setPlayerVisited();
+                                }
+                                break;
+                            default:
+                            playerGui.writeGUI("Please specify the door you would like to go through.");
+                        }
                     }
                     break;
                 case "sit":
@@ -262,8 +321,14 @@ public class Player {
                                 playerGui.writeGUI("You don't see a refrigerator here.");
                             }
                             break;
+                        case "toilet":
+                            if("Powder Room".equals(playerMap.getRoomName(playerLocation)))
+                            {
+                                playerGui.writeGUI("You instantly regret this decision.");
+                            }
+                            break;
                         default:
-                            playerGui.writeGUI("I don't know how you open that.");
+                            playerGui.writeGUI("I don't know how you would open that");
                             break;
                     }
                 default:

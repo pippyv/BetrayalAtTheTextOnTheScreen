@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package betrayalatthetextonthescreen;
 
 import java.util.ArrayList;
@@ -11,18 +6,20 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Map Class
+ * Map Class<br>
  * Constructor creates a new map.<br>
  * <P>
  * Instance variables: rooms array, room names and descriptions array lists,
  * and debug.<br>
  * Methods: Constructor, build map, put down, look, if room has item, remove inventory item,
- * if door exists, get door, enter room description, get number of rooms, and to string.<br>
+ * if door exists, get door, enter room description, get number of rooms, get number of doors,
+ * and to string.<br>
+ * <P>
  * @author Pippy Vallone, Trinity Headen, and Michael Elijius
  */
 public class Map 
 {
-    private final static int NUMBER_OF_ROOMS = 7;
+    private final static int NUMBER_OF_ROOMS = 14;
     public static Room[] rooms = new Room[NUMBER_OF_ROOMS];
     private static List<String> roomNames = new ArrayList<String>(Arrays.asList(
                 "Kitchen",          //1
@@ -55,7 +52,7 @@ public class Map
                         + "an upper floor peers down from above.",    //Main Hall Description
                 "You are standing in a small guest bedroom.\n"
                         + "There is a worn four-poster bed in the center of the "
-                        + "small room with immaculate hospital corners.",  //Guest Bedroom Description
+                        + "room with immaculate hospital corners.",  //Guest Bedroom Description
                 "You are in a formerly well-kept living room.\n"
                         + "There are two well-worn couches and a partially torn armchair"
                         + " arranged around a fileplace that is spilling ash and dust "
@@ -288,6 +285,18 @@ public class Map
     public static int getNumberOfRooms()
     {
         return NUMBER_OF_ROOMS;
+    }
+    
+    /**
+     * Get Number Of Doors Method<br>
+     * Calls the get number of doors method in the room class for the specified room.<br>
+     * @param playerLocation int reference number for the room the player is currently in.<br>
+     * @return int - number of doors in specified room.<br>
+     */
+    
+    public static int getNumberOfDoors(int playerLocation)
+    {
+        return rooms[playerLocation].getNumberOfDoors();
     }
     
     /**

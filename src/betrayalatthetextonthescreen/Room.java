@@ -1,4 +1,3 @@
-
 package betrayalatthetextonthescreen;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
  * Instance variables: room name, base room description, room description, 
  * doors array, room reference number, room inventory, and debug<br>
  * Methods: constructor, get/set room number, get/set room name, get/set door,
- * get/set room visited, get/set base room description, get/set/append/enter room description, 
+ * get/set room visited, get/set/append base room description, get/set/append/enter room description, 
  * if door exists, get number of doors, get/set room inventory, add/remove inventory item, 
  * if room has item, and to string<br>
  * <P>
@@ -126,6 +125,17 @@ public class Room
     public void appendRoomDescription(String description)
     {
         this.roomDescription += "\n" + description;
+    }
+    
+    /**
+     * Append Base Room Description Method<br>
+     * Appends a provided String onto the base room description on a new line.<br>
+     * For use of added permanent fixtures in a room.<br>
+     * @param description String to be appended.<br>
+     */
+    public void appendBaseRoomDescription(String description)
+    {
+        this.baseRoomDescription += "\n" + description;
     }
     
     /**
