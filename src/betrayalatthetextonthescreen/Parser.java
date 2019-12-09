@@ -55,7 +55,10 @@ public class Parser
                     cmd = pickUp(cmd);
                 }
                 else
-                    gui.writeGUI("Invalid command.");
+                {
+                    gui.writeGUI("I don't understand that.");
+                    cmd[0] = "else";
+                }
                 break;
             case "put":
                 if(cmd[1].equals("down"))
@@ -64,13 +67,34 @@ public class Parser
                     cmd = putDown(cmd);    
                 }
                 else
-                    gui.writeGUI("Invalid command.");
+                {
+                    gui.writeGUI("I don't understand that.");
+                    cmd[0] = "else";
+                }
                 break;
             case "drop":
                 cmd = putDown(cmd);
                 break;
             case "take":
                 cmd = pickUp(cmd);
+                break;
+            case "open":
+            case "check":
+                if ("inventory".equals(cmd[1]))
+                {
+                    for (int index = 1; index < cmd.length; index++) 
+                    {
+                        cmd[index-1] = cmd[1];
+                    }
+                }
+                if("door".equals(cmd[1]))
+                {
+                    if(cmd.length >= 3)
+                    {
+                        cmd[0] = "go";
+                        cmd[1] = cmd[2];
+                    }
+                }
                 break;
             case "go":
             case "move":
@@ -93,22 +117,12 @@ public class Parser
                 }
                 break;
             case "quit":
-                gui.writeGUI("Thank you for Playing");
+                gui.writeGUI("Thank you for playing.");
                 break;
             case "sit":
                 break;
-            case "open":
-            case "check":
-                if ("inventory".equals(cmd[1]))
-                {
-                    for (int index = 1; index < cmd.length; index++) 
-                    {
-                        cmd[index-1] = cmd[1];
-                    }
-                }
-                break;
             default:
-                gui.writeGUI("Invalid command");
+                gui.writeGUI("I don't understand that.");
         }
         return cmd;
     }
