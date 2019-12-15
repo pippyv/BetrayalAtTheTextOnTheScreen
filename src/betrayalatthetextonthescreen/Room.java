@@ -203,6 +203,10 @@ public class Room
     public void setRoomInventory(List<String> items)
     {
         this.roomInventory.clearInventory();
+                if (getRoomNumber() == 7)
+                {
+                    items.add("key");
+                }
         this.roomInventory.setInventory(items);
     }
     
