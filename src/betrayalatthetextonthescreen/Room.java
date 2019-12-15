@@ -37,6 +37,7 @@ public class Room
     private Inventory roomInventory;
     private Boolean roomVisited;
     private Debug debug;
+    private List<String> items;
     
     /**
      * Room Constructor 
@@ -203,7 +204,7 @@ public class Room
     public void setRoomInventory(List<String> items)
     {
         this.roomInventory.clearInventory();
-                if (getRoomNumber() == 7)
+                if (getRoomNumber()== 7)
                 {
                     items.add("key");
                 }
@@ -217,6 +218,10 @@ public class Room
      */
     public void addInventoryItem(String item)
     {
+        if (getRoomNumber() == 7)
+        {
+            this.roomInventory.addInventoryItem("key");
+        }
         this.roomInventory.addInventoryItem(item);
         debug.debug("dropped " + item + " hit the floor");
     }
