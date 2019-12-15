@@ -88,6 +88,11 @@ public class Player {
                 System.out.println("You have entered the secret room with the "
                         + "key. You win!!");
             }
+            else
+            {
+                System.out.println ("You entered the exit, but you don't "
+                        + "have the key");
+            }
         }      
     }
     
