@@ -22,9 +22,8 @@ public class BetrayalAtTheTextOnTheScreen
     {
         debug = new Debug();
         map = new Map();
-        player1 = new Player("Player 1", map);
-        player1.addInventoryItem("no tea");
-        player1.winCondition(player1);
+        player1 = new Player("Player", map);
+        player1.addInventoryItem("flashlight");
         
     }
 }

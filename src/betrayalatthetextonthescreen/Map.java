@@ -192,6 +192,11 @@ public class Map
         }
     }
     
+    /**
+     * Add Key Method
+     * Adds a key to the floor of a random room in the map.
+     * Adds a locked door as a permanent fixture to the last room in the rooms array.
+     */
     public static void addKey()
     {
         Random rand = new Random();

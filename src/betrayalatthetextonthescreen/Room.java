@@ -129,6 +129,8 @@ public class Room
     /**
      * Append Base Room Description Method<br>
      * Appends a provided String onto the base room description on a new line.<br>
+     * Then sets the room description to the to the base room description and appends
+     * item descriptions to the room description.<br>
      * For use of added permanent fixtures in a room.<br>
      * @param description String to be appended.<br>
      */

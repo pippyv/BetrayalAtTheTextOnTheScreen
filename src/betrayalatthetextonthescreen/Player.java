@@ -79,24 +79,6 @@ public class Player {
     {
         return this.playerName;
     }
-        
-    public void winCondition(Player pl)
-    {
-        if (pl.playerLocation == 7)
-        {
-            if (playerInventory.ifHasItem("key"))
-            {
-                System.out.println("You have entered the secret room with the "
-                        + "key. You win!!");
-            }
-            else
-            {
-                System.out.println ("You entered the exit, but you don't "
-                        + "have the key");
-            }
-        }      
-    }
-    
     
     public void setPlayerName(String name)
     {
@@ -366,7 +348,7 @@ public class Player {
                                     + "twists with a subtle click.\nThe door gives way "
                                     + "and the outside greets you like an old friend.\n"
                                     + "Congratulations, freedom is yours.");
-//WIN
+                                    //WIN
                         }
                         else
                         {
@@ -398,7 +380,6 @@ public class Player {
                 default:
             }
             playerGui.writeGUI("\nWhat would you like to do?");
-            //userInputArray = parser.parseInput();
         }
     }
     
