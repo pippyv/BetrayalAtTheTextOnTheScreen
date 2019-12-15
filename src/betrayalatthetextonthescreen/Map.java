@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class Map 
 {
-    private final static int NUMBER_OF_ROOMS = 3; //max is 14
+    private final static int NUMBER_OF_ROOMS = 4; //max is 14
     public static Room[] rooms = new Room[NUMBER_OF_ROOMS];
     private static List<String> roomImage = new ArrayList<String>(Arrays.asList(
     )); 
@@ -66,7 +66,7 @@ public class Map
                         + "The papers on the desk look old enough to crumble in your hands.",    //Study Description
                 "You are standing in a small observatory.\n"
                         + "Part of the roof is open with telescopes and other equipment "
-                        + "sitting in the open air beneath the hole.\n",  //Observatory Description
+                        + "sitting in the open air beneath the hole.",  //Observatory Description
                 "You are in a large ballroom.\n"
                         + "The floor is dusty but in decent shape and makes a satisfying"
                         + " tap under your shoes.\n"

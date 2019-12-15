@@ -329,7 +329,11 @@ public class Player {
                         case "toilet":
                             if("Powder Room".equals(playerMap.getRoomName(playerLocation)))
                             {
-                                playerGui.writeGUI("You instantly regret this decision.");
+                                playerGui.writeGUI("You instantly regret this decision.\n"
+                                        + "Wait, is that a bobby pin?\n"
+                                        + "It must have fallen off the toilet seat.\n"
+                                        + "What a weird place to keep your bobby pins.");
+                                playerMap.putDown(this.playerLocation, "bobby pin");
                             }
                             break;
                         default:
@@ -348,7 +352,20 @@ public class Player {
                                     + "twists with a subtle click.\nThe door gives way "
                                     + "and the outside greets you like an old friend.\n"
                                     + "Congratulations, freedom is yours.");
-                                    //WIN
+                            //WIN
+                        }
+                        else if(playerInventory.ifHasItem("bobby pin"))
+                        {
+                            playerGui.writeGUI("You cleverly insert the bobby pin into"
+                                    + " the key hole and give it a hearty jiggle.\n"
+                                    + "As you attempt to twist the pin and hear a loud SNAP.\n"
+                                    + "It turns out lockpicking is way harder in real life "
+                                    + "than it is in the movies.\n"
+                                    + "The remains of the broken bobby pin sit unreachable in"
+                                    + " the back of the lock, rendering it useless and stuck"
+                                    + " in the locked position.\n"
+                                    + "Welp.  I geuss that's the game.\n");
+                            //LOSE       
                         }
                         else
                         {
