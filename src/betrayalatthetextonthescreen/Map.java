@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import javax.imageio.ImageIO;
 
 /**
  * Map Class<br>
@@ -21,6 +22,8 @@ public class Map
 {
     private final static int NUMBER_OF_ROOMS = 14;
     public static Room[] rooms = new Room[NUMBER_OF_ROOMS];
+    private static List<String> roomImage = new ArrayList<String>(Arrays.asList(
+    )); 
     private static List<String> roomNames = new ArrayList<String>(Arrays.asList(
                 "Kitchen",          //1
                 "Powder Room",      //2
@@ -65,7 +68,8 @@ public class Map
                 "You are standing in a small observatory.\n"
                         + "Part of the roof is open with telescopes and other equipment "
                         + "sitting in the open air beneath the hole.\n"
-                        + "The equipment all seems to have been rained on.",  //Observatory Description
+                        + "The equipment all seems to have been rained on, and lying in the"
+                        + "ruckus is a mysterious key...",  //Observatory Description
                 "You are in a large ballroom.\n"
                         + "The floor is dusty but in decent shape and makes a satisfying"
                         + " tap under your shoes.\n"
