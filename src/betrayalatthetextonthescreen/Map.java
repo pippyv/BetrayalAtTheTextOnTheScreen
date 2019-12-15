@@ -68,7 +68,7 @@ public class Map
                 "You are standing in a small observatory.\n"
                         + "Part of the roof is open with telescopes and other equipment "
                         + "sitting in the open air beneath the hole.\n"
-                        + "The equipment all seems to have been rained on, and lying in the"
+                        + "The equipment all seems to have been rained on, and lying in the "
                         + "ruckus is a mysterious key...",  //Observatory Description
                 "You are in a large ballroom.\n"
                         + "The floor is dusty but in decent shape and makes a satisfying"
