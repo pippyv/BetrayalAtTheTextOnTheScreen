@@ -13,6 +13,7 @@ public class BetrayalAtTheTextOnTheScreen
     static Player player1;
     static Debug debug;
     static Map map;
+    static Room rm;
     
     /**
      * Main Method<br>
@@ -21,6 +22,8 @@ public class BetrayalAtTheTextOnTheScreen
     public static void main(String[] args) 
     {
         debug = new Debug();
+        rm = new Room ("Observatory", 7);
+        rm.addInventoryItem("key");
         map = new Map();
         player1 = new Player("Player 1", map);
         player1.addInventoryItem("no tea");
