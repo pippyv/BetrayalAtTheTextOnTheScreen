@@ -78,6 +78,19 @@ public class Player {
     {
         return this.playerName;
     }
+        
+    public void winCondition(Player pl)
+    {
+        if (pl.playerLocation == 7)
+        {
+            if (playerInventory.ifHasItem("key"))
+            {
+                System.out.println("You have entered the secret room with the "
+                        + "key. You win!!");
+            }
+        }      
+    }
+    
     
     public void setPlayerName(String name)
     {
