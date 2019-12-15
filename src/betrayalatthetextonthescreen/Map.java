@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class Map 
 {
-    private final static int NUMBER_OF_ROOMS = 4; //max is 14
+    private final static int NUMBER_OF_ROOMS = 10; //max is 14
     public static Room[] rooms = new Room[NUMBER_OF_ROOMS];
     private static List<String> roomImage = new ArrayList<String>(Arrays.asList(
     )); 
@@ -128,9 +128,7 @@ public class Map
         Random rand = new Random();
         int randomNumber;
         List<Integer> roomList = new ArrayList<Integer>();
-        roomList.add(NUMBER_OF_ROOMS - 2);
-        roomList.add(NUMBER_OF_ROOMS - 1);
-        for (int index = 0; index < NUMBER_OF_ROOMS - 2; index++) 
+        for (int index = 0; index < NUMBER_OF_ROOMS; index++) 
             roomList.add(index);
         for (int index = 0; index < NUMBER_OF_ROOMS; index++) 
         {
@@ -141,6 +139,15 @@ public class Map
             rooms[index].setRoomDescription(roomDescs.get(randomNumber));
             roomNames.remove(randomNumber);
             roomDescs.remove(randomNumber);
+            int nextIndex;
+            if(index < NUMBER_OF_ROOMS - 1)
+            {
+                nextIndex = index + 1;
+            }
+            else 
+            {
+                nextIndex = 0;
+            }
             if(rand.nextBoolean())
             {
                 debug.debug("Room " + index + " has two doors.");
@@ -148,13 +155,13 @@ public class Map
                 if(rand.nextBoolean())
                 {
                     debug.debug("Room " + index + "'s door one progresses.");
-                    rooms[index].setDoor(0, roomList.get(index));
+                    rooms[index].setDoor(0, roomList.get(nextIndex));
                     rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
                 else
                 {
                     debug.debug("Room " + index + "'s door two progresses.");
-                    rooms[index].setDoor(1, roomList.get(index));
+                    rooms[index].setDoor(1, roomList.get(nextIndex));
                     rooms[index].setDoor(0, rand.nextInt(NUMBER_OF_ROOMS - 1));
                 }
             }
@@ -167,19 +174,19 @@ public class Map
                 {
                     case 0:
                         debug.debug("Room " + index + "'s door one progresses.");
-                        rooms[index].setDoor(0, roomList.get(index));
+                        rooms[index].setDoor(0, roomList.get(nextIndex));
                         rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 1:
                         debug.debug("Room " + index + "'s door two progresses.");
-                        rooms[index].setDoor(1, roomList.get(index));
+                        rooms[index].setDoor(1, roomList.get(nextIndex));
                         rooms[index].setDoor(0, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(2, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
                     case 2:
                         debug.debug("Room " + index + "'s door three progresses.");
-                        rooms[index].setDoor(2, roomList.get(index));
+                        rooms[index].setDoor(2, roomList.get(nextIndex));
                         rooms[index].setDoor(0, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         rooms[index].setDoor(1, rand.nextInt(NUMBER_OF_ROOMS - 1));
                         break;
@@ -194,7 +201,7 @@ public class Map
     
     /**
      * Add Key Method
-     * Adds a key to the floor of a random room in the map.
+     * Adds a key to the floor of a random room in the map (excluding the final room).
      * Adds a locked door as a permanent fixture to the last room in the rooms array.
      */
     public static void addKey()

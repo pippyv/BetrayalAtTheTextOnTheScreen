@@ -50,11 +50,18 @@ public class GUI extends JFrame{
                 {
                     String fromUser = userInputField.getText();
                     if (fromUser != null) {
-                        textArea.append(fromUser + "\n\n");
-                        textArea.setCaretPosition(textArea.getDocument().getLength());
-                        userInputField.setText("");
-                        String[] userInputArray = parser.parseInput(fromUser);
-                        player.parse(userInputArray);
+                        if(player.getGameOver())
+                        {
+                            System.exit(0);
+                        }
+                        else
+                        {
+                            textArea.append(fromUser + "\n\n");
+                            textArea.setCaretPosition(textArea.getDocument().getLength());
+                            userInputField.setText("");
+                            String[] userInputArray = parser.parseInput(fromUser);
+                            player.parse(userInputArray);
+                        }
                     }
                 }
             }

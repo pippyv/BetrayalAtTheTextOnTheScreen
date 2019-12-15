@@ -31,6 +31,7 @@ public class Player {
     private Map playerMap;
     private GUI playerGui;
     private boolean[] roomsVisited;
+    private boolean gameOver;
     
     /**
      * Player constructor<br>
@@ -60,6 +61,7 @@ public class Player {
         debug = new Debug();
         playerMap = map;
         playerGui = new GUI(this, playerName);
+        this.gameOver = false;
         playerGui.writeGUI("Its Halloween night, and your friend dared you to "
                 + "enter the SCARY HAUNTED HOUSE down the road, reluctantly "
                 + "you entered the house, and suddenly the door slams behind you! "
@@ -135,6 +137,16 @@ public class Player {
     {
         int index = this.playerInventory.getInventoryItemIndex(item);
         return index;
+    }
+    
+    public boolean getGameOver()
+    {
+        return this.gameOver;
+    }
+    
+    public void setGameOver(boolean over)
+    {
+        this.gameOver = over;
     }
 
     /**
@@ -342,7 +354,7 @@ public class Player {
                     }
                     break;
                 case "unlock":
-                    if(this.playerLocation == (playerMap.getNumberOfRooms() - 1))
+                    if(this.playerLocation == (playerMap.getNumberOfRooms() - 1))//last room in rooms array
                     {
                         if(playerInventory.ifHasItem("key"))
                         {
@@ -352,7 +364,7 @@ public class Player {
                                     + "twists with a subtle click.\nThe door gives way "
                                     + "and the outside greets you like an old friend.\n"
                                     + "Congratulations, freedom is yours.");
-                            //WIN
+                            this.gameOver = true;
                         }
                         else if(playerInventory.ifHasItem("bobby pin"))
                         {
@@ -365,7 +377,7 @@ public class Player {
                                     + " the back of the lock, rendering it useless and stuck"
                                     + " in the locked position.\n"
                                     + "Welp.  I geuss that's the game.\n");
-                            //LOSE       
+                            this.gameOver = true;     
                         }
                         else
                         {
@@ -396,7 +408,14 @@ public class Player {
                     break;
                 default:
             }
-            playerGui.writeGUI("\nWhat would you like to do?");
+            if(!this.gameOver)
+            {
+                playerGui.writeGUI("\nWhat would you like to do?");
+            }
+        }
+        else
+        {
+            this.gameOver = true;
         }
     }
     
