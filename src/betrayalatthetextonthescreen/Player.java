@@ -63,7 +63,8 @@ public class Player {
         playerGui.writeGUI("Its Halloween night, and your friend dared you to "
                 + "enter the SCARY HAUNTED HOUSE down the road, reluctantly "
                 + "you entered the house, and suddenly the door slams behind you! "
-                + " Darkness envelops you. \n\n");
+                + " Darkness envelops you.\n"
+                + "For instructions on how to play, type 'help'.\n");
         playerGui.writeGUI(map.enterRoomDescription(playerLocation, false));
         playerGui.writeGUI("\nWhat would you like to do?");
         roomsVisited = new boolean[map.getNumberOfRooms()];
@@ -353,6 +354,47 @@ public class Player {
                             playerGui.writeGUI("I don't know how you would open that");
                             break;
                     }
+                    break;
+                case "unlock":
+                    if(this.playerLocation == (playerMap.getNumberOfRooms() - 1))
+                    {
+                        if(playerInventory.ifHasItem("key"))
+                        {
+                            playerGui.writeGUI("You insert the key into the lock.\n"
+                                    + "It does not initially turn and you fear for a "
+                                    + "moment that the key will break, but finally it "
+                                    + "twists with a subtle click.\nThe door gives way "
+                                    + "and the outside greets you like an old friend.\n"
+                                    + "Congratulations, freedom is yours.");
+//WIN
+                        }
+                        else
+                        {
+                            playerGui.writeGUI("You don't have anything to use to unlock the door.");
+                        }
+                    }
+                    else
+                    {
+                        playerGui.writeGUI("There is nothing to unlock here.");
+                    }
+                    break;
+                case "help":
+                    playerGui.writeGUI("Good of you to ask for help when you need it.\n"
+                            + "Welcome to the house.\nYou can move and interact by typing "
+                            + "commands into the text box.\nHere's what I can do:\n"
+                            + "Type 'inventory' to see what you are carrying.\n"
+                            + "Type 'drop' followed by an item you're carrying to put that "
+                            + "item down on the floor.\n"
+                            + "Type 'look' to have me repeat the full room description.\n"
+                            + "Type 'pick up' followed by an item in the room to pick it up.\n"
+                            + "Type 'move' followed by a door in the room to walk through that "
+                            + "door and enter a new room (i.e. 'move door 2' or 'move left door').\n"
+                            + "Type 'open' followed by an object in the room to open it up and "
+                            + "look inside.\n"
+                            + "Type 'unlock' followed by a locked item to... unlock things.\n"
+                            + "Type 'help' to hear this spiel again.\n"
+                            + "I hope this helped.");
+                    break;
                 default:
             }
             playerGui.writeGUI("\nWhat would you like to do?");

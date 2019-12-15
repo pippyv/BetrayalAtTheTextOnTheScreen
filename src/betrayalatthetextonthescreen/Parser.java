@@ -80,20 +80,29 @@ public class Parser
                 break;
             case "open":
             case "check":
-                if ("inventory".equals(cmd[1]))
+                switch(cmd[1])
                 {
-                    for (int index = 1; index < cmd.length; index++) 
-                    {
-                        cmd[index-1] = cmd[1];
-                    }
-                }
-                if("door".equals(cmd[1]))
-                {
-                    if(cmd.length >= 3)
-                    {
-                        cmd[0] = "go";
-                        cmd[1] = cmd[2];
-                    }
+                    case "inventory":
+                        for (int index = 1; index < cmd.length; index++) 
+                        {
+                            cmd[index-1] = cmd[1];
+                        }
+                        break;
+                    case "door":
+                        if(cmd.length >= 3)
+                        {
+                            cmd[0] = "go";
+                            cmd[1] = cmd[2];
+                        }
+                        break;
+                    case "locked":
+                        if(cmd[2].equals("door"))
+                        {
+                            cmd[0] = "unlock"; 
+                        }
+                        break;
+                    default:
+                        break;
                 }
                 break;
             case "go":
@@ -109,6 +118,13 @@ public class Parser
                     {
                         cmd[1] = cmd[2];
                     }
+                    else if(cmd[1].equals("locked"))
+                    {
+                        if(cmd[2].equals("door"))
+                        {
+                            cmd[0] = "unlock";
+                        }
+                    }
                 }
                 else
                 {
@@ -120,6 +136,16 @@ public class Parser
                 gui.writeGUI("Thank you for playing.");
                 break;
             case "sit":
+                break;
+            case "unlock":
+                break;
+            case "help":
+                if (cmd.length != 1) 
+                {
+                    gui.writeGUI("I can't help with that.\n"
+                            + "Type 'help' if you would like player instructions.");
+                    cmd[0] = "else";
+                }
                 break;
             default:
                 gui.writeGUI("I don't understand that.");
