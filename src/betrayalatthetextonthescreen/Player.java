@@ -60,6 +60,10 @@ public class Player {
         debug = new Debug();
         playerMap = map;
         playerGui = new GUI(this, playerName);
+        playerGui.writeGUI("Its Halloween night, and your friend dared you to "
+                + "enter the SCARY HAUNTED HOUSE down the road, \n reluctantly "
+                + "you entered the house, and suddenly the door slams behind you! "
+                + "\n darnkess envelops you. \n\n");
         playerGui.writeGUI(map.enterRoomDescription(playerLocation, false));
         playerGui.writeGUI("\nWhat would you like to do?");
         roomsVisited = new boolean[map.getNumberOfRooms()];
